@@ -76,6 +76,22 @@ const presentationBuilder: AgentConfig = {
     },
     {
       type: "function",
+      name: "navigateSlide",
+      description: "Navigate to a specific slide by slide slug.",
+      parameters: {
+        type: "object",
+        properties: {
+          slug: {
+            type: "string",
+            description: "The slug of the slide to navigate to.",
+          },
+        },
+        required: ["slug"],
+        additionalProperties: false,
+      },
+    },
+    {
+      type: "function",
       name: "modifySlide",
       description:
         "Modify the content on a specific slide identified by slide-slug.",

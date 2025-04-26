@@ -5,6 +5,7 @@ import { useCallback, useState } from "react";
 
 import "../elements/reveal/Reveal.css";
 import { RevealSlides } from "~/components/elements/reveal/Reveal";
+import { useSlides } from "~/contexts/SlidesContext";
 
 const RevealZoom = dynamic(() => import("reveal.js/plugin/zoom/zoom"), {
   ssr: false,
@@ -78,17 +79,20 @@ function Slides({ slides }: SlidesProps) {
   const handleOnStateChange = useCallback((state: Reveal.RevealState) => {
     console.log(state.indexh);
     if (state.indexh > 4) {
-      console.log('world');
-      setTheme('world');
+      console.log("world");
+      setTheme("world");
     } else {
-      console.log('demo');
-      setTheme('demo');
+      console.log("demo");
+      setTheme("demo");
     }
-  }, [theme]);
+  }, []);
+
+  const { revealRef } = useSlides();
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
       <RevealSlides
+        ref={revealRef}
         key="rs-2"
         scrollSnap="proximity"
         minScale={1}
@@ -123,15 +127,13 @@ function Slides({ slides }: SlidesProps) {
         </section>
         <section data-background="/background.jpg">
           <h2>
-            An AI-powered storytelling assistant that transforms ideas into impactful visuals
-            on the go!
+            An AI-powered storytelling assistant that transforms ideas into
+            impactful visuals on the go!
           </h2>
         </section>
 
         <section data-background="/background.jpg">
-          <h2>
-            DEMO TIME!
-          </h2>
+          <h2>DEMO TIME!</h2>
         </section>
 
         {slides.map((slide, index) => (

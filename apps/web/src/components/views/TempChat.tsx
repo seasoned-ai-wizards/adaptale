@@ -12,9 +12,12 @@ import { allAgentSets, defaultAgentSetKey } from "~/agentConfigs";
 import Transcript from "~/components/elements/blazity/Transcript";
 import BottomToolbar from "~/components/elements/blazity/BottomToolbar";
 import Slides, { SlideTemplate } from "~/components/views/Slides";
+import { useSlides } from "~/contexts/SlidesContext";
 
 function TempChat() {
   const searchParams = useSearchParams();
+
+  const { goTo } = useSlides();
 
   const [slides, setSlides] = useState<SlideTemplate[]>([]);
 
@@ -61,51 +64,60 @@ function TempChat() {
     [logClientEvent],
   );
 
-  const callFunctionHandler = useCallback(async (name: string, args: any) => {
-    console.log(name, args);
-    switch (name) {
-      case "generateOutline":
-        console.log("Generating outline", args);
-        setSlides((prevSlides) => []);
-        break;
-      case "addSlide":
-        console.log("Adding slide", args);
-        setSlides((prevSlides) => [
-          ...prevSlides,
-          {
-            slug: args.slug,
-            template: args.template,
-            title: args.title,
-            items: args.items,
-          },
-        ]);
-        break;
-      case "modifySlide":
-        console.log("Modifying slide", args);
-        setSlides((prevSlides) =>
-          prevSlides.map((slide) => {
-            if (slide.slug === args.slug) {
-              return {
-                ...slide,
-                title: args.title ?? slide.title,
-                items: args.items ?? slide.items,
-                template: args.template ?? slide.template,
-              };
-            }
-            return slide;
-          }),
-        );
-        break;
-      case "removeSlide":
-        console.log("Removing slide", args);
-        setSlides((prevSlides) =>
-          prevSlides.filter((slide) => slide.slug !== args.slug),
-        );
-        break;
-      default:
-        console.warn("Unknown function call:", name, args);
-    }
-  }, []);
+  const callFunctionHandler = useCallback(
+    async (name: string, args: any) => {
+      console.log(name, args);
+      switch (name) {
+        case "generateOutline":
+          console.log("Generating outline", args);
+          setSlides((prevSlides) => []);
+          break;
+        case "addSlide":
+          console.log("Adding slide", args);
+          setSlides((prevSlides) => [
+            ...prevSlides,
+            {
+              slug: args.slug,
+              template: args.template,
+              title: args.title,
+              items: args.items,
+            },
+          ]);
+          break;
+        case "modifySlide":
+          console.log("Modifying slide", args);
+          setSlides((prevSlides) =>
+            prevSlides.map((slide) => {
+              if (slide.slug === args.slug) {
+                return {
+                  ...slide,
+                  title: args.title ?? slide.title,
+                  items: args.items ?? slide.items,
+                  template: args.template ?? slide.template,
+                };
+              }
+              return slide;
+            }),
+          );
+          break;
+        case "removeSlide":
+          console.log("Removing slide", args);
+          setSlides((prevSlides) =>
+            prevSlides.filter((slide) => slide.slug !== args.slug),
+          );
+          break;
+        case "navigateSlide":
+          console.log("Navigating to slide", args);
+          // map slug to index
+          const slideIndex = slides.findIndex((slide) => slide.slug === args.slug);
+          goTo(slideIndex + 5);
+          break;
+        default:
+          console.warn("Unknown function call:", name, args);
+      }
+    },
+    [slides],
+  );
 
   const handleServerEventRef = useHandleServerEvent({
     onSessionStatus: setSessionStatus,
