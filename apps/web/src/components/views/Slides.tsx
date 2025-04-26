@@ -77,7 +77,7 @@ function Slides({ slides }: SlidesProps) {
 
   const handleOnStateChange = useCallback((state: Reveal.RevealState) => {
     console.log(state.indexh);
-    if (state.indexh > 3) {
+    if (state.indexh > 4) {
       console.log('world');
       setTheme('world');
     } else {
@@ -125,6 +125,12 @@ function Slides({ slides }: SlidesProps) {
           <h2>
             An AI-powered storytelling assistant that transforms ideas into impactful visuals
             on the go!
+          </h2>
+        </section>
+
+        <section data-background="/background.jpg">
+          <h2>
+            DEMO TIME!
           </h2>
         </section>
 
