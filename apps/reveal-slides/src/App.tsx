@@ -1,6 +1,5 @@
 import { CSSProperties, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react"
 import { RevealSlides } from "./Reveal"
-import { BiLogoGithub } from "react-icons/bi";
 import HoverEffect from 'hover-effect';
 
 // import RevealMarkdown from 'reveal.js/plugin/markdown/markdown';
@@ -126,7 +125,7 @@ const ProjectCard = ({title, description, image, link, gif, techStack, style}: {
 const showIntro = false;
 
 function App() {
-  const [theme, setTheme] = useState("sky")
+  const [theme, setTheme] = useState("black")
   const [presState, setPresState] = useState({"indexh": -1, "indexv": -1, "indexf": -1, "paused": false, "overview": false })
   const [useCustomTheme] = useState(false);
   const [controlsLayout] = useState<"edges" | "bottom-right" | undefined>("edges");
@@ -227,16 +226,7 @@ function App() {
   console.log("PresState: ", presState);
 
   return (
-    <>
-      <div key="header-navbar" style={{position: "absolute", top: "0", left: "0", width: "100%", height: "4.5rem", display: "flex", justifyContent: "center", alignItems: "center", zIndex: "1000000001", visibility: headerVisible, opacity: headerOpacity, transition: headerOpacity === 0 ? "" : "opacity 0.7s ease-in-out 0.8s"}}>
-        <div style={{width: "62vw", minHeight: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-          <h3 style={{fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", color: headerFontColor, transition: "color 1.2s ease-in-out"}}>react-reveal-slides</h3>
-          <a href='https://github.com/bouzidanas/react-reveal-slides' target='_blank' rel='noreferrer'>
-            <BiLogoGithub style={{color: headerFontColor, fontSize: "2.5rem", transition: "color 1.2s ease-in-out"}} />
-          </a>
-        </div>
-      </div>
-      <RevealSlides key="rs-2" scrollSnap="proximity" minScale={1} maxScale={1} transition="slide" width={"100%"} margin={0.01} view="scroll" controlsLayout={controlsLayout} presState={presState} plugins={[RevealZoom, RevealNotes]} theme={theme} onStateChange={handleOnStateChange}  >
+    <RevealSlides key="rs-2" scrollSnap="proximity" minScale={1} maxScale={1} transition="slide" width={"100%"} margin={0.01} view="scroll" controlsLayout={controlsLayout} presState={presState} plugins={[RevealZoom, RevealNotes]} theme={theme} onStateChange={handleOnStateChange}  >
         <section key="0">
           <section key="0-0" data-auto-animate data-background-color="#0c1821">
             <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh"}}>
@@ -349,8 +339,7 @@ function App() {
           <h2>The end</h2>
         </section>
       {useCustomTheme && <link rel="stylesheet" href="/custom_theme_starter.css" />}
-      </RevealSlides> 
-    </>
+    </RevealSlides> 
   )
 }
 
