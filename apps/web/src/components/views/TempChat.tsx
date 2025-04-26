@@ -16,22 +16,7 @@ import Slides, { SlideTemplate } from "~/components/views/Slides";
 function TempChat() {
   const searchParams = useSearchParams();
 
-  const [slides, setSlides] = useState<SlideTemplate[]>([
-    {
-      template: "world",
-      background: "/theme-world/bg1.jpeg",
-      title: "Welcome to",
-      items: ["My Story", "A journey through words and images"],
-      imageUrl: "/world-content/planet_earth.png",
-    },
-    {
-      template: "world",
-      background: "/theme-world/bg2.jpeg",
-      title: "Demo time!",
-      items: ["Let's generate some slides"],
-      imageUrl: "/world-content/planet_earth.png",
-    },
-  ]);
+  const [slides, setSlides] = useState<SlideTemplate[]>([]);
 
   const { transcriptItems, addTranscriptMessage, addTranscriptBreadcrumb } =
     useTranscript();
@@ -81,7 +66,7 @@ function TempChat() {
     switch (name) {
       case "generateOutline":
         console.log("Generating outline", args);
-        setSlides((prevSlides) => [...prevSlides.slice(0, 2)]);
+        setSlides((prevSlides) => []);
         break;
       case "addSlide":
         console.log("Adding slide", args);

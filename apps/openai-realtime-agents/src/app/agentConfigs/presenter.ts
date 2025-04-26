@@ -31,10 +31,14 @@ const presentationBuilder: AgentConfig = {
       type: "function",
       name: "addSlide",
       description:
-        "Add a new slide using a named template for the given topic slug.",
+        "Add a new slide using a named template for the given topic slug. Always generate some suggestions for the content.",
       parameters: {
         type: "object",
         properties: {
+          slug: {
+            type: "string",
+            description: "The slide slug for this. Needs to be unique.",
+          },
           title: {
             type: "string",
             description:
@@ -53,7 +57,7 @@ const presentationBuilder: AgentConfig = {
             description: "The name of the slide template to apply (e.g. 'title-and-bullets').",
           },
         },
-        required: ["title"],
+        required: ["title", "items"],
         additionalProperties: false,
       },
     },

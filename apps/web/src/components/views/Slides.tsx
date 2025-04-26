@@ -38,7 +38,8 @@ export interface SlideProps {
   imageUrl?: string;
 }
 
-function Slide({ title, items, background, imageUrl }: SlideProps) {
+
+function Slide({ title, items, background = "/theme-world/bg1.jpeg", imageUrl = "/world-content/planet_earth.png" }: SlideProps) {
   return (
     <section key="world-1" data-background={background}>
       <h1 className="fragment fade-in">{title}</h1>
@@ -100,7 +101,7 @@ function Slides({ slides }: SlidesProps) {
           />
         ))}
 
-        <section key="3" data-background-color="#dedede">
+        <section key="3" data-background="/theme-world/bg1.jpeg">
           <h2>The end</h2>
         </section>
         {customTheme && (
