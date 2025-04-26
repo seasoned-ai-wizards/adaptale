@@ -138,7 +138,7 @@ function Slides({ slides }: SlidesProps) {
           />
         ))}
 
-        <section key="3" data-background="/background.jpg">
+        <section key="3" data-background="/theme-world/bg3.jpeg">
           <h2>The end</h2>
         </section>
         {customTheme && (

@@ -1,4 +1,4 @@
-import { AgentConfig } from "~/types";
+import { type AgentConfig } from "~/types";
 import { injectTransferTools } from "./utils";
 
 //
@@ -9,8 +9,11 @@ const presentationBuilder: AgentConfig = {
   publicDescription:
     "Agent that helps you define your presentation outline and manage slides before you go live.",
   instructions:
-    "You're a presentation builder assistant. First ask the user for their presentation topic. " +
-    "Then use the tools to create an outline and let the user add, modify, or remove slides as needed.",
+    `You're a presentation builder assistant. Don't ask the user for instructions – let them speak first.
+    Then use the tools to create an outline and let the user add, modify, or remove slides as needed.
+    Do not ask the user for confirmation – just perform his instructions by adding slides and generating content
+    Do not repeat instructions to the user before adding slides.
+    Do not generate only the title – always add bullets about the topics the user asks.`,
   tools: [
     {
       type: "function",
