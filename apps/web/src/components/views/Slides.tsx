@@ -91,6 +91,34 @@ function Slides({ slides }: SlidesProps) {
         theme={theme}
         onStateChange={handleOnStateChange}
       >
+        <section data-background="/theme-world/bg1.jpeg">
+          <h2>The world's most important ideas are being held hostage by PowerPoint</h2>
+        </section>
+        <section key="my-planet-3">
+          <section key="world-6" data-auto-animate data-background="/theme-world/bg2.jpeg">
+              <h2 data-id="heading-my-planet-3">My Planet Earth</h2>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
+              </div>
+          </section>
+          <section key="world-7" data-auto-animate data-background="/theme-world/bg2.jpeg">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
+                  <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
+                </div>
+                <div style={{ flex: "1", padding: "0 20px", justifyContent: "left" }}>
+                  <h2 data-id="heading-my-planet-3">My Planet Earth</h2>
+                  <p>some paragraph</p>
+                  <ul>
+                    <li>One</li>
+                    <li>Two</li>
+                    <li>Three</li>
+                  </ul>
+                </div>
+              </div>
+          </section>
+        </section>
+        
         {slides.map((slide, index) => (
           <Slide
             key={index}
