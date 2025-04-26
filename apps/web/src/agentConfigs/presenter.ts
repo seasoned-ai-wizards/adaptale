@@ -14,86 +14,112 @@ const presentationBuilder: AgentConfig = {
   tools: [
     {
       type: "function",
-      name: "createOutline",
+      name: "generateOutline",
       description: "Create a presentation outline based on the user's topic.",
       parameters: {
         type: "object",
         properties: {
-          topics: {
+          topic: {
             type: "string",
             description: "The topic or title of the presentation.",
           },
+          outline: {
+            type: "array",
+            description:
+              "An array of strings representing the titles and slugs for the slides eg. Team (team).",
+            items: {
+              type: "string",
+            },
+          }
         },
-        required: ["topics"],
+        required: ["topic", "outline"],
         additionalProperties: false,
       },
     },
     {
       type: "function",
-      name: "add_slide",
+      name: "addSlide",
       description:
         "Add a new slide using a named template for the given topic slug.",
       parameters: {
         type: "object",
         properties: {
-          topicSlug: {
+          slug: {
             type: "string",
-            description:
-              "A URL-friendly identifier for the presentation topic (e.g. 'market-analysis').",
+            description: "The slide slug for this. Needs to be unique",
           },
-          templateName: {
+          title: {
             type: "string",
             description:
-              "The name of the slide template to apply (e.g. 'title-and-bullets').",
+              "Add a title for the new slide. This will be the main heading.",
+          },
+          items: {
+            type: "array",
+            description:
+              "An array of strings representing the content items for the slide.",
+            items: {
+              type: "string",
+            },
+          },
+          template: {
+            type: "string",
+            enum: ["one-column", "two-columns"],
+            description: "The name of the slide template to apply.",
           },
         },
-        required: ["topicSlug", "templateName"],
+        required: ["slug", "title", "template"],
         additionalProperties: false,
       },
     },
     {
       type: "function",
-      name: "modify_content_on_slide",
+      name: "modifySlide",
       description:
-        "Modify the content on a specific slide identified by topic slug and slide index.",
+        "Modify the content on a specific slide identified by slide-slug.",
       parameters: {
         type: "object",
         properties: {
-          topicSlug: {
+          slug: {
             type: "string",
-            description: "The topic slug for the presentation.",
+            description: "The slide slug for this.",
           },
-          slideIndex: {
-            type: "number",
-            description: "Zero-based index of the slide to modify.",
-          },
-          newContent: {
+          title: {
             type: "string",
-            description: "The updated content for that slide.",
+            description:
+              "Add a title for the new slide. This will be the main heading.",
+          },
+          items: {
+            type: "array",
+            description:
+              "An array of strings representing the content items for the slide.",
+            items: {
+              type: "string",
+            },
+          },
+          template: {
+            type: "string",
+            enum: ["one-column", "two-columns"],
+            description: "The name of the slide template to apply.",
           },
         },
-        required: ["topicSlug", "slideIndex", "newContent"],
+        required: ["slug"],
         additionalProperties: false,
       },
     },
     {
       type: "function",
-      name: "remove_slide",
+      name: "removeSlide",
       description:
-        "Remove a slide from the deck by topic slug and slide index.",
+        "Remove a slide from the deck by the slide slug.",
       parameters: {
         type: "object",
         properties: {
-          topicSlug: {
+          slug: {
             type: "string",
-            description: "The topic slug for the presentation.",
-          },
-          slideIndex: {
-            type: "number",
-            description: "Zero-based index of the slide to remove.",
+            description: "The slide slug for this.",
           },
         },
-        required: ["topicSlug", "slideIndex"],
+        required: ["slug"],
         additionalProperties: false,
       },
     },

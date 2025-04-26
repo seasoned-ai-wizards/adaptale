@@ -29,69 +29,78 @@ const presentationBuilder: AgentConfig = {
     },
     {
       type: "function",
-      name: "add_slide",
+      name: "addSlide",
       description:
         "Add a new slide using a named template for the given topic slug.",
       parameters: {
         type: "object",
         properties: {
-          topicSlug: {
+          title: {
             type: "string",
             description:
-              "A URL-friendly identifier for the presentation topic (e.g. 'market-analysis').",
+              "Add a title for the new slide. This will be the main heading.",
+          },
+          items: {
+            type: "array",
+            description:
+              "An array of strings representing the content items for the slide.",
+            items: {
+              type: "string",
+            },
           },
           templateName: {
             type: "string",
             description: "The name of the slide template to apply (e.g. 'title-and-bullets').",
           },
         },
-        required: ["topicSlug", "templateName"],
+        required: ["title"],
         additionalProperties: false,
       },
     },
     {
       type: "function",
-      name: "modify_content_on_slide",
+      name: "modifySlide",
       description:
         "Modify the content on a specific slide identified by topic slug and slide index.",
       parameters: {
         type: "object",
         properties: {
-          topicSlug: {
+          title: {
             type: "string",
-            description: "The topic slug for the presentation.",
+            description:
+              "Add a title for the new slide. This will be the main heading.",
           },
-          slideIndex: {
-            type: "number",
-            description: "Zero-based index of the slide to modify.",
+          items: {
+            type: "array",
+            description:
+              "An array of strings representing the content items for the slide.",
+            items: {
+              type: "string",
+            },
           },
-          newContent: {
+          templateName: {
             type: "string",
-            description: "The updated content for that slide.",
+            description: "The name of the slide template to apply (e.g. 'title-and-bullets').",
           },
         },
-        required: ["topicSlug", "slideIndex", "newContent"],
+        required: ["title"],
         additionalProperties: false,
       },
     },
     {
       type: "function",
-      name: "remove_slide",
+      name: "removeSlide",
       description:
         "Remove a slide from the deck by topic slug and slide index.",
       parameters: {
         type: "object",
         properties: {
-          topicSlug: {
-            type: "string",
-            description: "The topic slug for the presentation.",
-          },
           slideIndex: {
             type: "number",
             description: "Zero-based index of the slide to remove.",
           },
         },
-        required: ["topicSlug", "slideIndex"],
+        required: ["slideIndex"],
         additionalProperties: false,
       },
     },

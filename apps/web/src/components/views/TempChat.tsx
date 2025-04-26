@@ -2,27 +2,36 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { v4 as uuidv4 } from "uuid";
-
-// Types
-import { AgentConfig, SessionStatus } from "~/types";
-
-// Context providers & hooks
+import { v4 as uuidv4 } from "uuid"; // Types
+import { AgentConfig, SessionStatus } from "~/types"; // Context providers & hooks
 import { useTranscript } from "~/contexts/TranscriptContext";
 import { useEvent } from "~/contexts/EventContext";
-import { useHandleServerEvent } from "~/hooks/useHandleServerEvent";
-
-// Utilities
-import { createRealtimeConnection } from "~/lib/realtimeConnection";
-
-// Agent configs
+import { useHandleServerEvent } from "~/hooks/useHandleServerEvent"; // Utilities
+import { createRealtimeConnection } from "~/lib/realtimeConnection"; // Agent configs
 import { allAgentSets, defaultAgentSetKey } from "~/agentConfigs";
 import Transcript from "~/components/elements/blazity/Transcript";
-import Events from "~/components/elements/blazity/Events";
 import BottomToolbar from "~/components/elements/blazity/BottomToolbar";
+import Slides, { SlideTemplate } from "~/components/views/Slides";
 
 function TempChat() {
   const searchParams = useSearchParams();
+
+  const [slides, setSlides] = useState<SlideTemplate[]>([
+    {
+      template: "world",
+      background: "/theme-world/bg1.jpeg",
+      title: "Welcome to",
+      items: ["My Story", "A journey through words and images"],
+      imageUrl: "/world-content/planet_earth.png",
+    },
+    {
+      template: "world",
+      background: "/theme-world/bg2.jpeg",
+      title: "Demo time!",
+      items: ["Let's generate some slides"],
+      imageUrl: "/world-content/planet_earth.png",
+    },
+  ]);
 
   const { transcriptItems, addTranscriptMessage, addTranscriptBreadcrumb } =
     useTranscript();
@@ -69,6 +78,45 @@ function TempChat() {
 
   const callFunctionHandler = useCallback(async (name: string, args: any) => {
     console.log(name, args);
+    switch (name) {
+      case "generateOutline":
+        console.log("Generating outline", args);
+        setSlides((prevSlides) => [...prevSlides.slice(0, 2)]);
+        break;
+      case "addSlide":
+        console.log("Adding slide", args);
+        setSlides((prevSlides) => [
+          ...prevSlides,
+          {
+            slug: args.slug,
+            template: args.template,
+            title: args.title,
+            items: args.items,
+          },
+        ]);
+        break;
+      case "modifySlide":
+        console.log("Modifying slide", args);
+        setSlides((prevSlides) =>
+          prevSlides.map((slide) => {
+            if (slide.slug === args.slug) {
+              return {
+                ...slide,
+                title: args.title ?? slide.title,
+                items: args.items ?? slide.items,
+                template: args.template ?? slide.template,
+              };
+            }
+            return slide;
+          }),
+        );
+        break;
+      case "removeSlide":
+        console.log("Removing slide", args);
+        break;
+      default:
+        console.warn("Unknown function call:", name, args);
+    }
   }, []);
 
   const handleServerEventRef = useHandleServerEvent({
@@ -419,7 +467,8 @@ function TempChat() {
           }
         />
 
-        <Events isExpanded={isEventsPaneExpanded} />
+        {/*<Events isExpanded={isEventsPaneExpanded} />*/}
+        <Slides slides={slides} />
       </div>
 
       <BottomToolbar
