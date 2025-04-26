@@ -38,8 +38,12 @@ export interface SlideProps {
   imageUrl?: string;
 }
 
-
-function Slide({ title, items, background = "/theme-world/bg1.jpeg", imageUrl = "/world-content/planet_earth.png" }: SlideProps) {
+function Slide({
+  title,
+  items,
+  background = "/theme-world/bg1.jpeg",
+  imageUrl = "/adaptable.png",
+}: SlideProps) {
   return (
     <section key="world-1" data-background={background}>
       <h1 className="fragment fade-in">{title}</h1>
@@ -91,34 +95,32 @@ function Slides({ slides }: SlidesProps) {
         theme={theme}
         onStateChange={handleOnStateChange}
       >
-        <section data-background="/theme-world/bg1.jpeg">
-          <h2>The world's most important ideas are being held hostage by PowerPoint</h2>
+        <section data-background="/background.jpg">
+          <h2>
+            The world's most important ideas are being held hostage by
+            PowerPoint
+          </h2>
         </section>
-        <section key="my-planet-3">
-          <section key="world-6" data-auto-animate data-background="/theme-world/bg2.jpeg">
-              <h2 data-id="heading-my-planet-3">My Planet Earth</h2>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
-              </div>
-          </section>
-          <section key="world-7" data-auto-animate data-background="/theme-world/bg2.jpeg">
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
-                  <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
-                </div>
-                <div style={{ flex: "1", padding: "0 20px", justifyContent: "left" }}>
-                  <h2 data-id="heading-my-planet-3">My Planet Earth</h2>
-                  <p>some paragraph</p>
-                  <ul>
-                    <li>One</li>
-                    <li>Two</li>
-                    <li>Three</li>
-                  </ul>
-                </div>
-              </div>
-          </section>
+        <section data-background="/background.jpg">
+          <div className="flex flex-col items-center justify-center">
+            <img data-id="world" src="/adaptable.png" alt="Adaptable" />
+            <h2>
+              We believe that people's ideas deserve better than static slides.
+            </h2>
+          </div>
         </section>
-        
+        <section data-background="/background.jpg">
+          <h2>
+            It’s for expert people with immense impact, above all – educators.
+          </h2>
+        </section>
+        <section data-background="/background.jpg">
+          <h2>
+            An AI-powered storytelling assistant that transforms ideas into impactful visuals
+            on the go!
+          </h2>
+        </section>
+
         {slides.map((slide, index) => (
           <Slide
             key={index}
@@ -129,7 +131,7 @@ function Slides({ slides }: SlidesProps) {
           />
         ))}
 
-        <section key="3" data-background="/theme-world/bg1.jpeg">
+        <section key="3" data-background="/background.jpg">
           <h2>The end</h2>
         </section>
         {customTheme && (
