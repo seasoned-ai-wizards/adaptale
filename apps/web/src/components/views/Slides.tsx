@@ -45,7 +45,31 @@ function Slide({
   background = "/theme-world/bg1.jpeg",
   imageUrl = "/adaptable.png",
 }: SlideProps) {
-  return (
+  return imageUrl && imageUrl != '/adaptable.png' ? <>
+    <section key="my-planet-3">
+      <section key="world-6" data-auto-animate data-background="/theme-world/bg2.jpeg">
+          <h2 data-id="heading-my-planet-3">{title}</h2>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+            <img data-id="image" src={imageUrl} />
+          </div>
+      </section>
+      <section key="world-7" data-auto-animate data-background="/theme-world/bg2.jpeg">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+            <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
+              <img data-id="image" src={imageUrl} />
+            </div>
+            <div style={{ flex: "1", padding: "0 20px", justifyContent: "left" }}>
+              <h2 data-id="heading-my-planet-3">{title}</h2>
+              {items?.map((item, index) => (
+                <p key={index}>
+                  {item}
+                </p>
+              ))}
+            </div>
+          </div>
+      </section>
+    </section>
+  </> :(
     <section key="world-1" data-background={background}>
       <h1 className="fragment fade-in">{title}</h1>
       {items?.map((item, index) => (

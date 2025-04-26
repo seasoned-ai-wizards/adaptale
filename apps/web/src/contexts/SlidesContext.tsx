@@ -1,12 +1,12 @@
 import {
   createContext,
-  FC,
-  PropsWithChildren,
+  type FC,
+  type PropsWithChildren,
   useCallback,
   useContext,
   useRef,
 } from "react";
-import { RevealHandle } from "~/components/elements/reveal/Reveal";
+import { type RevealHandle } from "~/components/elements/reveal/Reveal";
 
 export interface SlidesContextValue {
   revealRef?: React.Ref<RevealHandle>;
@@ -19,8 +19,13 @@ export const SlidesProvider: FC<PropsWithChildren> = ({ children }) => {
   const revealRef = useRef<RevealHandle>(null);
 
   const goTo = useCallback(
-    (h: number, v: number = 0) => {
-      return revealRef.current?.getReveal()?.slide(h, v, 100);
+    (h: number, v = 0) => {
+      const reveal = revealRef.current?.getReveal();
+      if (!reveal) return;
+      const slide = reveal.getSlide(h, v);
+      const coordinates = reveal.getIndices(slide);
+      console.log(coordinates);
+      return reveal.slide(h, v, 100);
     },
     [revealRef],
   );

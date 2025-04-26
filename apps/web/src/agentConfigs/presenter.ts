@@ -16,6 +16,7 @@ const presentationBuilder: AgentConfig = {
     Do not ask the user for confirmation – just perform his instructions by adding slides and generating content
     Do not repeat instructions to the user before adding slides.
     Do not generate only the title – always add bullets about the topics the user asks.
+    Choose a relevant image from the available images. If you can't find a relevant image, don't provide it.
 
     # Available images for the presentations
     - /world-content/boy_hero_earth_powers_recycling_reduce_waste.png
@@ -85,6 +86,10 @@ const presentationBuilder: AgentConfig = {
             enum: ["one-column", "two-columns"],
             description: "The name of the slide template to apply.",
           },
+          imageUrl: {
+            type: "string",
+            description: "An image to accurately illustrate the slide content."
+          }
         },
         required: ["slug", "title", "template"],
         additionalProperties: false,
@@ -136,6 +141,10 @@ const presentationBuilder: AgentConfig = {
             enum: ["one-column", "two-columns"],
             description: "The name of the slide template to apply.",
           },
+          imageUrl: {
+            type: "string",
+            description: "An image to accurately illustrate the slide content."
+          }
         },
         required: ["slug"],
         additionalProperties: false,

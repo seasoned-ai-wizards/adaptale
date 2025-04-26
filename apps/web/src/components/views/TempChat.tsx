@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { v4 as uuidv4 } from "uuid"; // Types
-import { AgentConfig, SessionStatus } from "~/types"; // Context providers & hooks
+import { type AgentConfig, type SessionStatus } from "~/types"; // Context providers & hooks
 import { useTranscript } from "~/contexts/TranscriptContext";
 import { useEvent } from "~/contexts/EventContext";
 import { useHandleServerEvent } from "~/hooks/useHandleServerEvent"; // Utilities
@@ -11,7 +11,7 @@ import { createRealtimeConnection } from "~/lib/realtimeConnection"; // Agent co
 import { allAgentSets, defaultAgentSetKey } from "~/agentConfigs";
 import Transcript from "~/components/elements/blazity/Transcript";
 import BottomToolbar from "~/components/elements/blazity/BottomToolbar";
-import Slides, { SlideTemplate } from "~/components/views/Slides";
+import Slides, { type SlideTemplate } from "~/components/views/Slides";
 import { useSlides } from "~/contexts/SlidesContext";
 
 function TempChat() {
@@ -81,6 +81,7 @@ function TempChat() {
               template: args.template,
               title: args.title,
               items: args.items,
+              imageUrl: args.imageUrl
             },
           ]);
           break;
@@ -94,6 +95,7 @@ function TempChat() {
                   title: args.title ?? slide.title,
                   items: args.items ?? slide.items,
                   template: args.template ?? slide.template,
+                  imageUrl: args.imageUrl ?? slide.imageUrl
                 };
               }
               return slide;
@@ -229,7 +231,7 @@ function TempChat() {
     );
   };
 
-  const updateSession = (shouldTriggerResponse: boolean = false) => {
+  const updateSession = (shouldTriggerResponse = false) => {
     sendClientEvent(
       { type: "input_audio_buffer.clear" },
       "clear audio buffer on session update",
