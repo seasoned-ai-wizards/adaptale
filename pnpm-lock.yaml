@@ -491,6 +491,9 @@ importers:
       react-markdown:
         specifier: ^9.0.3
         version: 9.1.0(@types/react@18.3.18)(react@18.3.1)
+      reveal.js:
+        specifier: ^5.1.0
+        version: 5.2.1
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
@@ -528,6 +531,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.5(@types/react@18.3.18)
+      '@types/reveal.js':
+        specifier: ^5.0.3
+        version: 5.0.5
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.1.0
         version: 8.24.1(@typescript-eslint/parser@8.24.1(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
