@@ -1,5 +1,7 @@
 import { CSSProperties, useEffect, useState } from "react"
 import { RevealSlides } from "./Reveal"
+import { RenderSlides } from "./Slides"
+import { slides } from "./slideData"
 
 // import RevealMarkdown from 'reveal.js/plugin/markdown/markdown';
 // import RevealHighlight from 'reveal.js/plugin/highlight/highlight';
@@ -30,78 +32,21 @@ function App() {
   console.log("PresState: ", presState);
 
   return (
-    <RevealSlides key="rs-2" scrollSnap="proximity" minScale={1} maxScale={1} transition="slide" width={"100%"} margin={0.01} controlsLayout={controlsLayout} presState={presState} plugins={[RevealZoom, RevealNotes]} theme={theme} onStateChange={handleOnStateChange}  >
-        <section key="world-1" data-background="/theme-world/bg1.jpeg">
-            <h1>Welcome to my</h1>
-            <h1 className="fragment fade-in">My Story</h1>
-            <p className="fragment fade-in">A journey through words and images</p>
-        </section>
-        <section key="my-planet">
-          <section key="world-2" data-auto-animate data-background="/theme-world/bg2.jpeg">
-              <h1>My Planet Earth</h1>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
-              </div>
-          </section>
-          <section key="world-3" data-auto-animate data-background="/theme-world/bg2.jpeg">
-              <h1>My Planet Earth</h1>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                <div style={{ flex: "1", padding: "0 20px", justifyContent: "left" }}>
-                  <p>This is Earth. For billions of years, Earth has been our amazing home, with just the right temperature for plants, animals, and people to thrive.</p>
-                </div>
-                <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
-                  <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
-                </div>
-              </div>
-          </section>
-        </section>
-        <section key="my-planet-2">
-          <section key="world-4" data-auto-animate data-background="/theme-world/bg2.jpeg">
-              <h1>My Planet Earth</h1>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
-              </div>
-          </section>
-          <section key="world-5" data-auto-animate data-background="/theme-world/bg2.jpeg">
-              <h1>My Planet Earth</h1>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
-                  <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
-                </div>
-                <div style={{ flex: "1", padding: "0 20px", justifyContent: "left" }}>
-                  <ul>
-                    <li>One</li>
-                    <li>Two</li>
-                    <li>Three</li>
-                  </ul>
-                </div>
-              </div>
-          </section>
-        </section>
-        <section key="my-planet-3">
-          <section key="world-6" data-auto-animate data-background="/theme-world/bg2.jpeg">
-              <h2 data-id="heading-my-planet-3">My Planet Earth</h2>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
-              </div>
-          </section>
-          <section key="world-7" data-auto-animate data-background="/theme-world/bg2.jpeg">
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
-                  <img data-id="world" src="/world-content/planet_earth.png" alt="Planet Earth" />
-                </div>
-                <div style={{ flex: "1", padding: "0 20px", justifyContent: "left" }}>
-                  <h2 data-id="heading-my-planet-3">My Planet Earth</h2>
-                  <p>some paragraph</p>
-                  <ul>
-                    <li>One</li>
-                    <li>Two</li>
-                    <li>Three</li>
-                  </ul>
-                </div>
-              </div>
-          </section>
-        </section>
+    <RevealSlides 
+      key="rs-2" 
+      scrollSnap="proximity" 
+      minScale={1} 
+      maxScale={1} 
+      transition="slide" 
+      width={"100%"} 
+      margin={0.01} 
+      controlsLayout={controlsLayout} 
+      presState={presState} 
+      plugins={[RevealZoom, RevealNotes]} 
+      theme={theme} 
+      onStateChange={handleOnStateChange}
+    >
+      <RenderSlides slides={slides} />
       {customTheme && <link rel="stylesheet" href={`/theme.${customTheme}.css`} />}
     </RevealSlides> 
   )
