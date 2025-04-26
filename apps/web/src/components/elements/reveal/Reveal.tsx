@@ -529,7 +529,7 @@ export const RevealSlides = forwardRef<RevealHandle, RevealSlidesProps>(
       return () => {
         if (!revealRef.current) return;
         try {
-          revealRef.current!.destroy();
+          revealRef.current.destroy();
           revealRef.current = null;
         } catch (e) {
           console.warn("Reveal.destroy() call failed.");
@@ -541,7 +541,7 @@ export const RevealSlides = forwardRef<RevealHandle, RevealSlidesProps>(
       console.log("theme adjust");
       if (!theme || theme === "none" || !themes.includes(theme)) return;
       // Dynamically import the theme CSS file
-      import(`~/../node_modules/reveal.js/dist/theme/${theme}.css`)
+      import(`./reveal-themes/${theme}.css`)
         .then(() => {
           console.log("Theme loaded: ", theme);
           try {

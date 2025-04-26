@@ -56,7 +56,7 @@ interface SlidesProps {
 }
 
 function Slides({ slides }: SlidesProps) {
-  const [theme, setTheme] = useState("sky");
+  const [theme, setTheme] = useState("world");
 
   const [presState, setPresState] = useState({
     indexh: -1,
