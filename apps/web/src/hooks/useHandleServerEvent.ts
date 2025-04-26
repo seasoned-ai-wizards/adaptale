@@ -1,26 +1,22 @@
 "use client";
 
-import { AgentConfig, ServerEvent, SessionStatus } from "~/types";
-import { useTranscript } from "~/contexts/TranscriptContext";
+import { ServerEvent, ServerEventType, SessionStatus } from "~/types";
 import { useEvent } from "~/contexts/EventContext";
 import { useRef } from "react";
+import { useTranscript } from "~/contexts/TranscriptContext";
 
 export interface UseHandleServerEventParams {
-  setSessionStatus: (status: SessionStatus) => void;
-  selectedAgentName: string;
-  selectedAgentConfigSet: AgentConfig[] | null;
-  sendClientEvent: (eventObj: any, eventNameSuffix?: string) => void;
-  setSelectedAgentName: (name: string) => void;
-  shouldForceResponse?: boolean;
+  onSessionStatus: (status: SessionStatus) => void;
+  sendClientEvent: (eventObj: unknown, eventNameSuffix?: string) => void;
+  callFunctionHandler: (functionName: string, args: any) => Promise<unknown>;
 }
 
 export function useHandleServerEvent({
-  setSessionStatus,
-  selectedAgentName,
-  selectedAgentConfigSet,
+  onSessionStatus,
   sendClientEvent,
-  setSelectedAgentName,
+  callFunctionHandler,
 }: UseHandleServerEventParams) {
+  // TODO for now let's keep it here, but we should move it to the server conversation log
   const {
     transcriptItems,
     addTranscriptBreadcrumb,
@@ -36,70 +32,45 @@ export function useHandleServerEvent({
     call_id?: string;
     arguments: string;
   }) => {
-    const args = JSON.parse(functionCallParams.arguments);
-    const currentAgent = selectedAgentConfigSet?.find(
-      (a) => a.name === selectedAgentName,
-    );
-
-    addTranscriptBreadcrumb(`function call: ${functionCallParams.name}`, args);
-
-    if (currentAgent?.toolLogic?.[functionCallParams.name]) {
-      const fn = currentAgent.toolLogic[functionCallParams.name];
-      const fnResult = await fn(args, transcriptItems);
-      addTranscriptBreadcrumb(
-        `function call result: ${functionCallParams.name}`,
-        fnResult,
+    const functionName = functionCallParams.name;
+    try {
+      const functionArgs: unknown = JSON.parse(functionCallParams.arguments);
+      const fnResult: unknown = await callFunctionHandler(
+        functionName,
+        functionArgs,
       );
 
+      if (fnResult === undefined) {
+        const simulatedResult = { result: true };
+        addTranscriptBreadcrumb(
+          `function call fallback: ${functionCallParams.name}`,
+          simulatedResult,
+        );
+
+        sendClientEvent({
+          type: ServerEventType.ConversationItemCreate,
+          item: {
+            type: "function_call_output",
+            call_id: functionCallParams.call_id,
+            output: JSON.stringify(simulatedResult),
+          },
+        });
+        sendClientEvent({ type: ServerEventType.ResponseCreate });
+        return;
+      }
+
       sendClientEvent({
-        type: "conversation.item.create",
+        type: ServerEventType.ConversationItemCreate,
         item: {
           type: "function_call_output",
           call_id: functionCallParams.call_id,
           output: JSON.stringify(fnResult),
         },
       });
-      sendClientEvent({ type: "response.create" });
-    } else if (functionCallParams.name === "transferAgents") {
-      const destinationAgent = args.destination_agent;
-      const newAgentConfig =
-        selectedAgentConfigSet?.find((a) => a.name === destinationAgent) ||
-        null;
-      if (newAgentConfig) {
-        setSelectedAgentName(destinationAgent);
-      }
-      const functionCallOutput = {
-        destination_agent: destinationAgent,
-        did_transfer: !!newAgentConfig,
-      };
-      sendClientEvent({
-        type: "conversation.item.create",
-        item: {
-          type: "function_call_output",
-          call_id: functionCallParams.call_id,
-          output: JSON.stringify(functionCallOutput),
-        },
-      });
-      addTranscriptBreadcrumb(
-        `function call: ${functionCallParams.name} response`,
-        functionCallOutput,
-      );
-    } else {
-      const simulatedResult = { result: true };
-      addTranscriptBreadcrumb(
-        `function call fallback: ${functionCallParams.name}`,
-        simulatedResult,
-      );
-
-      sendClientEvent({
-        type: "conversation.item.create",
-        item: {
-          type: "function_call_output",
-          call_id: functionCallParams.call_id,
-          output: JSON.stringify(simulatedResult),
-        },
-      });
-      sendClientEvent({ type: "response.create" });
+      sendClientEvent({ type: ServerEventType.ResponseCreate });
+    } catch (error) {
+      console.error(error);
+      //TODO error parsing arguments
     }
   };
 
@@ -107,9 +78,9 @@ export function useHandleServerEvent({
     logServerEvent(serverEvent);
 
     switch (serverEvent.type) {
-      case "session.created": {
+      case ServerEventType.SessionCreated: {
         if (serverEvent.session?.id) {
-          setSessionStatus("CONNECTED");
+          onSessionStatus("CONNECTED");
           addTranscriptBreadcrumb(
             `session.id: ${
               serverEvent.session.id
@@ -119,28 +90,34 @@ export function useHandleServerEvent({
         break;
       }
 
-      case "conversation.item.created": {
-        let text =
-          serverEvent.item?.content?.[0]?.text ||
-          serverEvent.item?.content?.[0]?.transcript ||
-          "";
-        const role = serverEvent.item?.role as "user" | "assistant";
-        const itemId = serverEvent.item?.id;
+      case ServerEventType.ConversationItemCreated: {
+        if (serverEvent.item) {
+          let text =
+            serverEvent.item.content?.[0]?.text ??
+            serverEvent.item?.content?.[0]?.transcript ??
+            "";
+          const role = serverEvent.item.role;
+          const itemId = serverEvent.item.id;
 
-        if (itemId && transcriptItems.some((item) => item.itemId === itemId)) {
-          break;
-        }
-
-        if (itemId && role) {
-          if (role === "user" && !text) {
-            text = "[Transcribing...]";
+          if (
+            itemId &&
+            transcriptItems.some((item) => item.itemId === itemId)
+          ) {
+            break;
           }
-          addTranscriptMessage(itemId, role, text);
+
+          if (itemId && role) {
+            if (role === "user" && !text) {
+              text = "[Transcribing...]";
+            }
+            addTranscriptMessage(itemId, role, text);
+          }
         }
+
         break;
       }
 
-      case "conversation.item.input_audio_transcription.completed": {
+      case ServerEventType.ConversationItemInputAudioTranscriptionCompleted: {
         const itemId = serverEvent.item_id;
         const finalTranscript =
           !serverEvent.transcript || serverEvent.transcript === "\n"
@@ -152,16 +129,16 @@ export function useHandleServerEvent({
         break;
       }
 
-      case "response.audio_transcript.delta": {
+      case ServerEventType.ResponseAudioTranscriptDelta: {
         const itemId = serverEvent.item_id;
-        const deltaText = serverEvent.delta || "";
+        const deltaText = serverEvent.delta ?? "";
         if (itemId) {
           updateTranscriptMessage(itemId, deltaText, true);
         }
         break;
       }
 
-      case "response.done": {
+      case ServerEventType.ResponseDone: {
         if (serverEvent.response?.output) {
           serverEvent.response.output.forEach((outputItem) => {
             if (
@@ -169,10 +146,10 @@ export function useHandleServerEvent({
               outputItem.name &&
               outputItem.arguments
             ) {
-              handleFunctionCall({
+              void handleFunctionCall({
                 name: outputItem.name,
                 call_id: outputItem.call_id,
-                arguments: outputItem.arguments,
+                arguments: outputItem.arguments as string,
               });
             }
           });
@@ -180,7 +157,7 @@ export function useHandleServerEvent({
         break;
       }
 
-      case "response.output_item.done": {
+      case ServerEventType.ResponseOutputItemDone: {
         const itemId = serverEvent.item?.id;
         if (itemId) {
           updateTranscriptItemStatus(itemId, "DONE");

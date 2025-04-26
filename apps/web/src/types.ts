@@ -34,7 +34,9 @@ export interface AgentConfig {
     string,
     (args: any, transcriptLogsFiltered: TranscriptItem[]) => Promise<any> | any
   >;
-  downstreamAgents?: AgentConfig[] | { name: string; publicDescription: string }[];
+  downstreamAgents?:
+    | AgentConfig[]
+    | { name: string; publicDescription: string }[];
 }
 
 export type AllAgentConfigsType = Record<string, AgentConfig[]>;
@@ -62,8 +64,22 @@ export interface Log {
   type: string;
 }
 
+export const ServerEventType = {
+  SessionCreated: "session.created",
+  ConversationItemCreate: "conversation.item.create",
+  ConversationItemCreated: "conversation.item.created",
+  ConversationItemInputAudioTranscriptionCompleted:
+    "conversation.item.input_audio_transcription.completed",
+  ResponseAudioTranscriptDelta: "response.audio_transcript.delta",
+  ResponseCreate: "response.create",
+  ResponseDone: "response.done",
+  ResponseOutputItemDone: "response.output_item.done",
+};
+// use values as type
+export type ServerEventType = typeof ServerEventType[keyof typeof ServerEventType];
+
 export interface ServerEvent {
-  type: string;
+  type: ServerEventType;
   event_id?: string;
   item_id?: string;
   transcript?: string;
@@ -89,7 +105,7 @@ export interface ServerEvent {
     output?: {
       type?: string;
       name?: string;
-      arguments?: any;
+      arguments?: unknown;
       call_id?: string;
     }[];
     status_details?: {
