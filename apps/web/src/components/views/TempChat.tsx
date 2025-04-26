@@ -113,6 +113,9 @@ function TempChat() {
         break;
       case "removeSlide":
         console.log("Removing slide", args);
+        setSlides((prevSlides) =>
+          prevSlides.filter((slide) => slide.slug !== args.slug),
+        );
         break;
       default:
         console.warn("Unknown function call:", name, args);
