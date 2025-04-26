@@ -1,12 +1,8 @@
 /**
- * Solarized Dark theme for reveal.js.
- * Author: Achim Staebler
+ * Custom theme for reveal.js based on user's App.tsx styling.
  */
- @import url(https://fonts.googleapis.com/css2?family=League+Gothic&display=swap);
- @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
- /**
-  * Solarized colors by Ethan Schoonover
-  */
+ @import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Salsa&display=swap');
+
  section.has-light-background, section.has-light-background h1, section.has-light-background h2, section.has-light-background h3, section.has-light-background h4, section.has-light-background h5, section.has-light-background h6 {
    color: #222;
  }
@@ -15,17 +11,17 @@
   * GLOBAL STYLES
   *********************************************/
  :root {
-   --r-background-color: #002b36;
-   --r-main-font: Lato, sans-serif;
+   --r-background-color: #FEF9EB;
+   --r-main-font: 'Salsa', cursive;
    --r-main-font-size: 40px;
-   --r-main-color: #93a1a1;
+   --r-main-color: #FE733A;
    --r-block-margin: 20px;
    --r-heading-margin: 0 0 20px 0;
-   --r-heading-font: League Gothic, Impact, sans-serif;
-   --r-heading-color: #eee8d5;
+   --r-heading-font: 'Rubik Bubbles', system-ui;
+   --r-heading-color: #E7AD52;
    --r-heading-line-height: 1.2;
    --r-heading-letter-spacing: normal;
-   --r-heading-text-transform: uppercase;
+   --r-heading-text-transform: none;
    --r-heading-text-shadow: none;
    --r-heading-font-weight: normal;
    --r-heading1-text-shadow: none;
@@ -34,17 +30,17 @@
    --r-heading3-size: 1.55em;
    --r-heading4-size: 1em;
    --r-code-font: monospace;
-   --r-link-color: #268bd2;
-   --r-link-color-dark: #1a6091;
-   --r-link-color-hover: #78b9e6;
-   --r-selection-background-color: #d33682;
+   --r-link-color: #f17a52;
+   --r-link-color-dark: #d16342;
+   --r-link-color-hover: #ffb399;
+   --r-selection-background-color: #f17a52;
    --r-selection-color: #fff;
    --r-overlay-element-bg-color: 240, 240, 240;
    --r-overlay-element-fg-color: 0, 0, 0;
  }
  
  .reveal-viewport {
-   background: #002b36;
+   background: #0c1821;
    background-color: var(--r-background-color);
  }
  
@@ -351,7 +347,7 @@
    background: rgba(0, 0, 0, 0.2);
    color: var(--r-link-color);
  }
- 
+
  /*********************************************
   * PRINT BACKGROUND
   *********************************************/
