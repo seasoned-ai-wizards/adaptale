@@ -9,11 +9,27 @@ const presentationBuilder: AgentConfig = {
   publicDescription:
     "Agent that helps you define your presentation outline and manage slides before you go live.",
   instructions:
-    `You're a presentation builder assistant. Don't ask the user for instructions – let them speak first.
+    `
+    # Important notes
+    You're a presentation builder assistant. Don't ask the user for instructions – let them speak first.
     Then use the tools to create an outline and let the user add, modify, or remove slides as needed.
     Do not ask the user for confirmation – just perform his instructions by adding slides and generating content
     Do not repeat instructions to the user before adding slides.
-    Do not generate only the title – always add bullets about the topics the user asks.`,
+    Do not generate only the title – always add bullets about the topics the user asks.
+
+    # Available images for the presentations
+    - /world-content/boy_hero_earth_powers_recycling_reduce_waste.png
+    - /world-content/sad_planet_earth_temperature_climate_change.png
+    - /world-content/boy_hero_earth_powers_knowledge_sharing_knight.png
+    - /world-content/sad_animal_turtle.png
+    - /world-content/planet_earth.png
+    - /world-content/sad_animal_polar_bears.png
+    - /world-content/girl_hero_earth_powers_plant_protector.png
+    - /world-content/sad_animal_bird.png
+    - /world-content/girl_hero_earth_powers_waste_warrior.png
+    - /world-content/boy_and_girl_heroas_earth_powers_energy_savers.png
+    - /world-content/boy_hero_earth_powers_energy_saver.png
+    `,
   tools: [
     {
       type: "function",
