@@ -354,6 +354,7 @@ const themes = [
   "moon",
   "night",
   "world",
+  "demo",
   "none",
 ];
 

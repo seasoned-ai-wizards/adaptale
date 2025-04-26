@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import "../elements/reveal/Reveal.css";
 import { RevealSlides } from "~/components/elements/reveal/Reveal";
@@ -61,7 +61,7 @@ interface SlidesProps {
 }
 
 function Slides({ slides }: SlidesProps) {
-  const [theme, setTheme] = useState("world");
+  const [theme, setTheme] = useState("demo");
 
   const [presState, setPresState] = useState({
     indexh: -1,
@@ -75,9 +75,16 @@ function Slides({ slides }: SlidesProps) {
     "bottom-right",
   );
 
-  const handleOnStateChange = (state: Reveal.RevealState) => {
-    console.log(state);
-  };
+  const handleOnStateChange = useCallback((state: Reveal.RevealState) => {
+    console.log(state.indexh);
+    if (state.indexh > 3) {
+      console.log('world');
+      setTheme('world');
+    } else {
+      console.log('demo');
+      setTheme('demo');
+    }
+  }, [theme]);
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
