@@ -65,7 +65,7 @@ function TempChat() {
   );
 
   const callFunctionHandler = useCallback(
-    async (name: string, args: any) => {
+    async (name: string, args: SlideTemplate) => {
       console.log(name, args);
       switch (name) {
         case "generateOutline":
@@ -75,13 +75,14 @@ function TempChat() {
         case "addSlide":
           console.log("Adding slide", args);
           setSlides((prevSlides) => [
-            ...prevSlides,
+            ...prevSlides.map(slide => ({...slide, isNewSlide: false})),
             {
               slug: args.slug,
               template: args.template,
               title: args.title,
               items: args.items,
-              imageUrl: args.imageUrl
+              imageUrl: args.imageUrl,
+              isNewSlide: true
             },
           ]);
           break;
@@ -95,10 +96,14 @@ function TempChat() {
                   title: args.title ?? slide.title,
                   items: args.items ?? slide.items,
                   template: args.template ?? slide.template,
-                  imageUrl: args.imageUrl ?? slide.imageUrl
+                  imageUrl: args.imageUrl ?? slide.imageUrl,
+                  isNewSlide: false
                 };
               }
-              return slide;
+              return {
+                ...slide,
+                isNewSlide: false
+              };
             }),
           );
           break;

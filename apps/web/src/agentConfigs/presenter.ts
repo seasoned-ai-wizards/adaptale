@@ -28,8 +28,9 @@ const presentationBuilder: AgentConfig = {
     - /world-content/girl_hero_earth_powers_plant_protector.png
     - /world-content/sad_animal_bird.png
     - /world-content/girl_hero_earth_powers_waste_warrior.png
-    - /world-content/boy_and_girl_heroas_earth_powers_energy_savers.png
+    - /world-content/boy_and_girl_heroes_earth_powers_energy_savers.png
     - /world-content/boy_hero_earth_powers_energy_saver.png
+    - /world-content/girl_hero_earth_powers_energy_saver.png
     `,
   tools: [
     {

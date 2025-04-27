@@ -30,6 +30,7 @@ export interface SlideTemplate {
   title?: string;
   items?: string[];
   imageUrl?: string;
+  isNewSlide?: boolean;
 }
 
 export interface SlideProps {
@@ -37,6 +38,7 @@ export interface SlideProps {
   items?: string[];
   background?: string;
   imageUrl?: string;
+  isNewSlide?: boolean
 }
 
 function Slide({
@@ -44,22 +46,35 @@ function Slide({
   items,
   background = "/theme-world/bg1.jpeg",
   imageUrl = "/adaptable.png",
+  isNewSlide = false,
 }: SlideProps) {
+  const keyPrefix = title 
+    ? btoa(title)
+        .replace(/[+/=]/g, '') // Remove non-alphanumeric chars
+        .substring(0, 8) 
+    : '';
   return imageUrl && imageUrl != '/adaptable.png' ? <>
-    <section key="my-planet-3">
-      <section key="world-6" data-auto-animate data-background="/theme-world/bg2.jpeg">
-          <h2 data-id="heading-my-planet-3">{title}</h2>
+    <section key={keyPrefix}
+      {... isNewSlide ? {hidden: true, className: "future", "aria-hidden": "true"} : {}}
+      data-background={background}
+      >
+      <section key={`${keyPrefix}-1`} data-auto-animate>
+          <h2 data-id={`${keyPrefix}-heading`}>{title}</h2>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-            <img data-id="image" src={imageUrl} />
+            <img data-id={`${keyPrefix}-image`} src={imageUrl} style={{
+                maxHeight: '500px'
+              }} />
           </div>
       </section>
-      <section key="world-7" data-auto-animate data-background="/theme-world/bg2.jpeg">
+      <section key={`${keyPrefix}-2`} data-auto-animate>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
             <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
-              <img data-id="image" src={imageUrl} />
+              <img data-id={`${keyPrefix}-image`} src={imageUrl} style={{
+                maxHeight: '400px'
+              }} />
             </div>
             <div style={{ flex: "1", padding: "0 20px", justifyContent: "left" }}>
-              <h2 data-id="heading-my-planet-3">{title}</h2>
+              <h2 data-id={`${keyPrefix}-heading`}>{title}</h2>
               {items?.map((item, index) => (
                 <p key={index}>
                   {item}
@@ -70,10 +85,12 @@ function Slide({
       </section>
     </section>
   </> :(
-    <section key="world-1" data-background={background}>
+    <section key={keyPrefix} data-background={background}
+      {... isNewSlide ? {hidden: true, className: "future", "aria-hidden": "true"} : {}}
+      >
       <h1 className="fragment fade-in">{title}</h1>
       {items?.map((item, index) => (
-        <p key={index} className="fragment fade-in">
+        <p key={index} className={`fragment${ index !== 0 ? ' fade-in': '' }`}>
           {item}
         </p>
       ))}
@@ -132,7 +149,7 @@ function Slides({ slides }: SlidesProps) {
       >
         <section data-background="/background.jpg">
           <h2>
-            The world's most important ideas are being held hostage by
+            The world&apos;s most important ideas are being held hostage by
             PowerPoint
           </h2>
         </section>
@@ -140,7 +157,7 @@ function Slides({ slides }: SlidesProps) {
           <div className="flex flex-col items-center justify-center">
             <img data-id="world" src="/adaptable.png" alt="Adaptable" />
             <h2>
-              We believe that people's ideas deserve better than static slides.
+              We believe that people&apos;s ideas deserve better than static slides.
             </h2>
           </div>
         </section>
@@ -167,6 +184,7 @@ function Slides({ slides }: SlidesProps) {
             items={slide.items}
             background={slide.background}
             imageUrl={slide.imageUrl}
+            isNewSlide={slide.isNewSlide}
           />
         ))}
 

@@ -2,7 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { TranscriptItem } from "~/types";
+import { SendIcon } from "lucide-react";
+import { type TranscriptItem } from "~/types";
 import Image from "next/image";
 import { useTranscript } from "~/contexts/TranscriptContext";
 
@@ -176,7 +177,7 @@ function Transcript({
           disabled={!canSend || !userText.trim()}
           className="bg-gray-900 text-white rounded-full px-2 py-2 disabled:opacity-50"
         >
-          <Image src="arrow.svg" alt="Send" width={24} height={24} />
+          <SendIcon />
         </button>
       </div>
     </div>
