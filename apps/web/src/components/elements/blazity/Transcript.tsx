@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { SendIcon } from "lucide-react";
 import { type TranscriptItem } from "~/types";
-import Image from "next/image";
 import { useTranscript } from "~/contexts/TranscriptContext";
 
 export interface TranscriptProps {
@@ -68,21 +67,30 @@ function Transcript({
   };
 
   return (
-    <div className="flex flex-col flex-1 bg-white min-h-0 rounded-xl">
-      <div className="relative flex-1 min-h-0">
-        <button
-          onClick={handleCopyTranscript}
-          className={`absolute w-20 top-3 right-2 mr-1 z-10 text-sm px-3 py-2 rounded-full bg-gray-200 hover:bg-gray-300`}
-        >
-          {justCopied ? "Copied!" : "Copy"}
-        </button>
+    <div className="flex min-h-0 flex-1 flex-col rounded-xl bg-white">
+      <div className="relative min-h-0 flex-1">
+        {/*<button*/}
+        {/*  onClick={handleCopyTranscript}*/}
+        {/*  className={`absolute w-20 top-3 right-2 mr-1 z-10 text-sm px-3 py-2 rounded-full bg-gray-200 hover:bg-gray-300`}*/}
+        {/*>*/}
+        {/*  {justCopied ? "Copied!" : "Copy"}*/}
+        {/*</button>*/}
 
         <div
           ref={transcriptRef}
-          className="overflow-auto p-4 flex flex-col gap-y-4 h-full"
+          className="flex h-full flex-col gap-y-4 overflow-auto p-4"
         >
           {transcriptItems.map((item) => {
-            const { itemId, type, role, data, expanded, timestamp, title = "", isHidden } = item;
+            const {
+              itemId,
+              type,
+              role,
+              data,
+              expanded,
+              timestamp,
+              title = "",
+              isHidden,
+            } = item;
 
             if (isHidden) {
               return null;
@@ -93,14 +101,21 @@ function Transcript({
               const baseContainer = "flex justify-end flex-col";
               const containerClasses = `${baseContainer} ${isUser ? "items-end" : "items-start"}`;
               const bubbleBase = `max-w-lg p-3 rounded-xl ${isUser ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-black"}`;
-              const isBracketedMessage = title.startsWith("[") && title.endsWith("]");
-              const messageStyle = isBracketedMessage ? "italic text-gray-400" : "";
-              const displayTitle = isBracketedMessage ? title.slice(1, -1) : title;
+              const isBracketedMessage =
+                title.startsWith("[") && title.endsWith("]");
+              const messageStyle = isBracketedMessage
+                ? "italic text-gray-400"
+                : "";
+              const displayTitle = isBracketedMessage
+                ? title.slice(1, -1)
+                : title;
 
               return (
                 <div key={itemId} className={containerClasses}>
                   <div className={bubbleBase}>
-                    <div className={`text-xs ${isUser ? "text-gray-400" : "text-gray-500"} font-mono`}>
+                    <div
+                      className={`text-xs ${isUser ? "text-gray-400" : "text-gray-500"} font-mono`}
+                    >
                       {timestamp}
                     </div>
                     <div className={`whitespace-pre-wrap ${messageStyle}`}>
@@ -109,22 +124,55 @@ function Transcript({
                   </div>
                 </div>
               );
+            } else if (type === "FUNCTION_CALL") {
+              return (
+                <div key={itemId} className={"items-center"}>
+                  <div
+                    className={"max-w-lg rounded-xl bg-blue-800 p-3 text-white"}
+                  >
+                    <div
+                      className={`flex items-center whitespace-pre-wrap text-sm font-bold ${
+                        data ? "cursor-pointer" : ""
+                      }`}
+                      onClick={() => data && toggleTranscriptItemExpand(itemId)}
+                    >
+                      {data && (
+                        <span
+                          className={`mr-1 transform select-none font-mono text-gray-400 transition-transform duration-200 ${
+                            expanded ? "rotate-90" : "rotate-0"
+                          }`}
+                        >
+                          ▶
+                        </span>
+                      )}
+                      {title}
+                    </div>
+                    {expanded && data && (
+                      <div className="text-left text-gray-800">
+                        <pre className="mb-2 ml-1 mt-2 whitespace-pre-wrap break-words border-l-2 border-gray-200 pl-2 font-mono text-xs">
+                          {JSON.stringify(data, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
             } else if (type === "BREADCRUMB") {
               return (
                 <div
                   key={itemId}
-                  className="flex flex-col justify-start items-start text-gray-500 text-sm"
+                  className="flex flex-col items-start justify-start text-sm text-gray-500"
                 >
-                  <span className="text-xs font-mono">{timestamp}</span>
+                  <span className="font-mono text-xs">{timestamp}</span>
                   <div
-                    className={`whitespace-pre-wrap flex items-center font-mono text-sm text-gray-800 ${
+                    className={`flex items-center whitespace-pre-wrap font-mono text-sm text-gray-800 ${
                       data ? "cursor-pointer" : ""
                     }`}
                     onClick={() => data && toggleTranscriptItemExpand(itemId)}
                   >
                     {data && (
                       <span
-                        className={`text-gray-400 mr-1 transform transition-transform duration-200 select-none font-mono ${
+                        className={`mr-1 transform select-none font-mono text-gray-400 transition-transform duration-200 ${
                           expanded ? "rotate-90" : "rotate-0"
                         }`}
                       >
@@ -134,8 +182,8 @@ function Transcript({
                     {title}
                   </div>
                   {expanded && data && (
-                    <div className="text-gray-800 text-left">
-                      <pre className="border-l-2 ml-1 border-gray-200 whitespace-pre-wrap break-words font-mono text-xs mb-2 mt-2 pl-2">
+                    <div className="text-left text-gray-800">
+                      <pre className="mb-2 ml-1 mt-2 whitespace-pre-wrap break-words border-l-2 border-gray-200 pl-2 font-mono text-xs">
                         {JSON.stringify(data, null, 2)}
                       </pre>
                     </div>
@@ -147,7 +195,7 @@ function Transcript({
               return (
                 <div
                   key={itemId}
-                  className="flex justify-center text-gray-500 text-sm italic font-mono"
+                  className="flex justify-center font-mono text-sm italic text-gray-500"
                 >
                   Unknown item type: {type}{" "}
                   <span className="ml-2 text-xs">{timestamp}</span>
@@ -158,7 +206,7 @@ function Transcript({
         </div>
       </div>
 
-      <div className="p-4 flex items-center gap-x-2 flex-shrink-0 border-t border-gray-200">
+      <div className="flex flex-shrink-0 items-center gap-x-2 border-t border-gray-200 p-4">
         <input
           ref={inputRef}
           type="text"
@@ -175,7 +223,7 @@ function Transcript({
         <button
           onClick={onSendMessage}
           disabled={!canSend || !userText.trim()}
-          className="bg-gray-900 text-white rounded-full px-2 py-2 disabled:opacity-50"
+          className="rounded-full bg-gray-900 px-2 py-2 text-white disabled:opacity-50"
         >
           <SendIcon />
         </button>

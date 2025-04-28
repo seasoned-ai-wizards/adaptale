@@ -400,10 +400,10 @@ function TempChat() {
       selectedAgentConfigSet &&
       selectedAgentName
     ) {
-      const currentAgent = selectedAgentConfigSet.find(
-        (a) => a.name === selectedAgentName,
-      );
-      addTranscriptBreadcrumb(`Agent: ${selectedAgentName}`, currentAgent);
+      // const currentAgent = selectedAgentConfigSet.find(
+      //   (a) => a.name === selectedAgentName,
+      // );
+      // addTranscriptBreadcrumb(`Agent: ${selectedAgentName}`, currentAgent);
       updateSession(true);
     }
   }, [selectedAgentConfigSet, selectedAgentName, sessionStatus]);
@@ -478,19 +478,19 @@ function TempChat() {
         <Slides slides={slides} />
       </div>
 
-      <BottomToolbar
-        sessionStatus={sessionStatus}
-        onToggleConnection={onToggleConnection}
-        isPTTActive={isPTTActive}
-        setIsPTTActive={setIsPTTActive}
-        isPTTUserSpeaking={isPTTUserSpeaking}
-        handleTalkButtonDown={handleTalkButtonDown}
-        handleTalkButtonUp={handleTalkButtonUp}
-        isEventsPaneExpanded={isEventsPaneExpanded}
-        setIsEventsPaneExpanded={setIsEventsPaneExpanded}
-        isAudioPlaybackEnabled={isAudioPlaybackEnabled}
-        setIsAudioPlaybackEnabled={setIsAudioPlaybackEnabled}
-      />
+      {/*<BottomToolbar*/}
+      {/*  sessionStatus={sessionStatus}*/}
+      {/*  onToggleConnection={onToggleConnection}*/}
+      {/*  isPTTActive={isPTTActive}*/}
+      {/*  setIsPTTActive={setIsPTTActive}*/}
+      {/*  isPTTUserSpeaking={isPTTUserSpeaking}*/}
+      {/*  handleTalkButtonDown={handleTalkButtonDown}*/}
+      {/*  handleTalkButtonUp={handleTalkButtonUp}*/}
+      {/*  isEventsPaneExpanded={isEventsPaneExpanded}*/}
+      {/*  setIsEventsPaneExpanded={setIsEventsPaneExpanded}*/}
+      {/*  isAudioPlaybackEnabled={isAudioPlaybackEnabled}*/}
+      {/*  setIsAudioPlaybackEnabled={setIsAudioPlaybackEnabled}*/}
+      {/*/>*/}
     </div>
   );
 }

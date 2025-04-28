@@ -19,7 +19,7 @@ export function useHandleServerEvent({
   // TODO for now let's keep it here, but we should move it to the server conversation log
   const {
     transcriptItems,
-    addTranscriptBreadcrumb,
+    addFunctionCall,
     addTranscriptMessage,
     updateTranscriptMessage,
     updateTranscriptItemStatus,
@@ -40,12 +40,10 @@ export function useHandleServerEvent({
         functionArgs,
       );
 
+      addFunctionCall(functionCallParams.name, fnResult);
+
       if (fnResult === undefined) {
         const simulatedResult = { result: true };
-        addTranscriptBreadcrumb(
-          `function call fallback: ${functionCallParams.name}`,
-          simulatedResult,
-        );
 
         sendClientEvent({
           type: ServerEventType.ConversationItemCreate,
@@ -81,11 +79,11 @@ export function useHandleServerEvent({
       case ServerEventType.SessionCreated: {
         if (serverEvent.session?.id) {
           onSessionStatus("CONNECTED");
-          addTranscriptBreadcrumb(
-            `session.id: ${
-              serverEvent.session.id
-            }\nStarted at: ${new Date().toLocaleString()}`,
-          );
+          // addTranscriptBreadcrumb(
+          //   `session.id: ${
+          //     serverEvent.session.id
+          //   }\nStarted at: ${new Date().toLocaleString()}`,
+          // );
         }
         break;
       }

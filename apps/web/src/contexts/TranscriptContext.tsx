@@ -9,6 +9,7 @@ type TranscriptContextValue = {
   addTranscriptMessage: (itemId: string, role: "user" | "assistant", text: string, hidden?: boolean) => void;
   updateTranscriptMessage: (itemId: string, text: string, isDelta: boolean) => void;
   addTranscriptBreadcrumb: (title: string, data?: Record<string, any>) => void;
+  addFunctionCall: (name: string, data?: Record<string, any>) => void;
   toggleTranscriptItemExpand: (itemId: string) => void;
   updateTranscriptItemStatus: (itemId: string, newStatus: "IN_PROGRESS" | "DONE") => void;
 };
@@ -63,6 +64,22 @@ export const TranscriptProvider: FC<PropsWithChildren> = ({ children }) => {
       })
     );
   };
+  const addFunctionCall: TranscriptContextValue["addFunctionCall"] = (name, data) => {
+    setTranscriptItems((prev) => [
+      ...prev,
+      {
+        itemId: `function-call-${uuidv4()}`,
+        type: "FUNCTION_CALL",
+        title: name,
+        data,
+        expanded: false,
+        timestamp: newTimestampPretty(),
+        createdAtMs: Date.now(),
+        status: "DONE",
+        isHidden: false,
+      },
+    ]);
+  }
 
   const addTranscriptBreadcrumb: TranscriptContextValue["addTranscriptBreadcrumb"] = (title, data) => {
     setTranscriptItems((prev) => [
@@ -103,6 +120,7 @@ export const TranscriptProvider: FC<PropsWithChildren> = ({ children }) => {
         transcriptItems,
         addTranscriptMessage,
         updateTranscriptMessage,
+        addFunctionCall,
         addTranscriptBreadcrumb,
         toggleTranscriptItemExpand,
         updateTranscriptItemStatus,
