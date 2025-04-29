@@ -28,7 +28,9 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
+    --font-inter: 'Inter', sans-serif;
+    --font-paytone: 'Paytone One', sans-serif;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -54,7 +56,7 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 
@@ -63,8 +65,33 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+    font-family: var(--font-inter);
   }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-paytone;
+    font-family: var(--font-paytone);
+  }
+}
+
+/* Font helper classes */
+.font-sans, 
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+.font-paytone {
+  font-family: var(--font-paytone);
+}
+
+/* Use Inter font for specific elements */
+.heading-inter h1,
+.heading-inter h2,
+.heading-inter h3,
+.heading-inter h4,
+.heading-inter h5,
+.heading-inter h6 {
+  font-family: var(--font-inter);
 }
 
 /* Blob styling */
@@ -156,5 +183,65 @@
   }
   100% {
     transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+@layer components {
+  .btn-gradient-border {
+    min-width: 84px;
+    max-width: 480px;
+    padding: 16px;
+    border-radius: 20px;
+    line-height: 23px;
+
+    border: 4px solid;
+    border-image-source: linear-gradient(90deg, #40DEEF 0%, #8664F7 41.35%, #FF6680 67.41%, #FE8C40 88.02%, #FEBF37 100%);
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    border: 4px solid;
+    border-image-source: linear-gradient(90deg, #40DEEF 0%, #8664F7 41.35%, #FF6680 67.41%, #FE8C40 88.02%, #FEBF37 100%);
+    border-image-slice: 1;
+  }
+
+  .btn-gradient-border:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-gradient-1 {
+    @apply bg-gradient-to-r from-[#40DEEF] to-[#8664F7];
+  }
+  
+  .card-gradient-2 {
+    @apply bg-gradient-to-r from-[#FF6680] to-[#FE8C40];
+  }
+  
+  .card-gradient-3 {
+    @apply bg-gradient-to-r from-[#FE8C40] to-[#FEBF37];
+  }
+
+  .card-presentation {
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    background-color: transparent;
+  }
+
+  .card-thumbnail {
+    height: 170px;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: #FEF9EF;
+    padding: 1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .card-thumbnail:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 }
