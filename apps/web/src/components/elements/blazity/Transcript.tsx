@@ -226,21 +226,13 @@ function Transcript({
           placeholder="Type a message..."
         />
         <button
-          onMouseDown={() => {
-            setIsListening(true);
-            handleTalkButtonDown();
-          }}
-          onMouseUp={() => {
-            setIsListening(false);
-            handleTalkButtonUp();
-          }}
-          onTouchStart={() => {
-            setIsListening(true);
-            handleTalkButtonDown();
-          }}
-          onTouchEnd={() => {
-            setIsListening(false);
-            handleTalkButtonUp();
+          onClick={() => {
+            if (isListening) {
+              handleTalkButtonUp();
+            } else {
+              handleTalkButtonDown();
+            }
+            setIsListening(!!isListening);
           }}
           className="rounded-full bg-gray-900 px-2 py-2 text-white disabled:opacity-50"
         >

@@ -131,7 +131,7 @@ function Slides({ slides }: SlidesProps) {
   const { revealRef } = useSlides();
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center">
+    <div className="flex h-screen w-screen flex-col items-center justify-center">
       <RevealSlides
         ref={revealRef}
         key="rs-2"

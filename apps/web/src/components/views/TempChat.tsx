@@ -462,7 +462,7 @@ function TempChat() {
   }, [isAudioPlaybackEnabled]);
 
   return (
-    <div className="relative flex h-[calc(100vh-64px)] flex-col bg-gray-100 text-base text-gray-800">
+    <div className="relative flex h-[calc(100vh-64px)] flex-col text-base text-gray-800">
       <div className="relative flex flex-1 gap-2 overflow-hidden px-2">
         <Transcript
           userText={userText}
