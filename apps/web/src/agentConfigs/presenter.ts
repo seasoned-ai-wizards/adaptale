@@ -19,6 +19,10 @@ const presentationBuilder: AgentConfig = {
     Choose a relevant image from the available images. If you can't find a relevant image, don't provide it.
 
     # Available images for the presentations
+    ## Generic theme
+    - background.jpg
+    ## World theme
+    ### Content
     - /world-content/boy_hero_earth_powers_recycling_reduce_waste.png
     - /world-content/sad_planet_earth_temperature_climate_change.png
     - /world-content/boy_hero_earth_powers_knowledge_sharing_knight.png
@@ -31,6 +35,21 @@ const presentationBuilder: AgentConfig = {
     - /world-content/boy_and_girl_heroes_earth_powers_energy_savers.png
     - /world-content/boy_hero_earth_powers_energy_saver.png
     - /world-content/girl_hero_earth_powers_energy_saver.png
+    ### Backgrounds
+    - theme-world/bg1.jpeg
+    - theme-world/bg2.jpeg
+    - theme-world/bg3.jpeg
+    ## Adaptale theme
+    ### Content
+    - adaptale-content/adaptale_process_create_coach_present.png
+    - adaptale-content/adaptale_create.png
+    - adaptale-content/adaptales_coach.png
+    - adaptale-content/adaptale_present.png
+    - adaptale-content/adaptale_creativity.png
+  ### Backgrounds
+    - adaptale-content/adaptale_slide_background_1.jpg
+    - adaptale-content/adaptale_slide_background_2.jpg
+    - adaptale-content/adaptale_slide_background_3.jpg
     `,
   tools: [
     {

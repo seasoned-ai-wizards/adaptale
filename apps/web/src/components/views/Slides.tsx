@@ -101,8 +101,8 @@ interface SlidesProps {
   slides?: SlideTemplate[];
 }
 
-function Slides({ slides }: SlidesProps) {
-  const [theme, setTheme] = useState("demo");
+function Slides({ slides = [] }: SlidesProps) {
+  const [theme, setTheme] = useState("adaptale");
 
   const [presState, setPresState] = useState({
     indexh: -1,
@@ -111,20 +111,19 @@ function Slides({ slides }: SlidesProps) {
     paused: false,
     overview: false,
   });
-  const [customTheme, setCustomTheme] = useState<string | undefined>(undefined);
   const [controlsLayout] = useState<"edges" | "bottom-right" | undefined>(
     "bottom-right",
   );
 
   const handleOnStateChange = useCallback((state: Reveal.RevealState) => {
-    console.log(state.indexh);
-    if (state.indexh > 4) {
-      console.log("world");
-      setTheme("world");
-    } else {
-      console.log("demo");
-      setTheme("demo");
-    }
+    console.log('Presentation state', state);
+    // if (state.indexh > 4) {
+    //   console.log("world");
+    //   setTheme("world");
+    // } else {
+    //   console.log("demo");
+    //   setTheme("demo");
+    // }
   }, []);
 
   const { revealRef } = useSlides();
@@ -146,13 +145,13 @@ function Slides({ slides }: SlidesProps) {
         theme={theme}
         onStateChange={handleOnStateChange}
       >
-        <section data-background="/background.jpg">
+        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
           <h2>
             The world&apos;s most important ideas are being held hostage by
             PowerPoint
           </h2>
         </section>
-        <section data-background="/background.jpg">
+        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
           <div className="flex flex-col items-center justify-center">
             <img data-id="world" src="/adaptable.png" alt="Adaptable" />
             <h2>
@@ -160,19 +159,19 @@ function Slides({ slides }: SlidesProps) {
             </h2>
           </div>
         </section>
-        <section data-background="/background.jpg">
+        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
           <h2>
             It’s for expert people with immense impact, above all – educators.
           </h2>
         </section>
-        <section data-background="/background.jpg">
+        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
           <h2>
             An AI-powered storytelling assistant that transforms ideas into
             impactful visuals on the go!
           </h2>
         </section>
 
-        <section data-background="/background.jpg">
+        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
           <h2>DEMO TIME!</h2>
         </section>
 
@@ -187,12 +186,9 @@ function Slides({ slides }: SlidesProps) {
           />
         ))}
 
-        <section key="3" data-background="/theme-world/bg3.jpeg">
+        <section key="3" data-background="/adaptale-content/adaptale_slide_background_2.jpg">
           <h2>The end</h2>
         </section>
-        {customTheme && (
-          <link rel="stylesheet" href={`/theme.${customTheme}.css`} />
-        )}
       </RevealSlides>
     </div>
   );

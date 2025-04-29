@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Inter, Paytone_One } from "next/font/google";
+import { Inter, Paytone_One, Outfit } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Header } from "~/components/elements/Header";
@@ -21,6 +21,14 @@ const paytoneOne = Paytone_One({
   variable: "--font-paytone",
 });
 
+// Configure the Outfit font
+const outfit = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
+  weight: ["400", "500", "900"],
+});
+
 export const metadata: Metadata = {
   title: "Adaptale - Create Presentations",
   description: "Create and manage interactive presentations",
@@ -31,7 +39,7 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${paytoneOne.variable}`}>
+    <html lang="en" className={`${inter.variable} ${paytoneOne.variable} ${outfit.variable}`}>
       <body className="min-h-screen bg-gray-50 font-sans">
         <Header />
         <TRPCReactProvider>{children}</TRPCReactProvider>

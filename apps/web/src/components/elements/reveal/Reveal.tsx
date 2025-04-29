@@ -342,6 +342,7 @@ const defaultConfigProps = {
 };
 
 const themes = [
+  "adaptale",
   "black",
   "white",
   "league",
