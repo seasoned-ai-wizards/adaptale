@@ -215,13 +215,21 @@ function Transcript({
         <div className="textarea-gradient-border relative p-4">
           <div className="absolute bottom-4 right-4 flex items-center gap-x-2 z-10">
             <button
-              onClick={() => {
-                if (isListening) {
-                  handleTalkButtonUp();
-                } else {
-                  handleTalkButtonDown();
-                }
-                setIsListening(!!isListening);
+              onMouseDown={() => {
+                setIsListening(true);
+                handleTalkButtonDown();
+              }}
+              onMouseUp={() => {
+                setIsListening(false);
+                handleTalkButtonUp();
+              }}
+              onTouchStart={() => {
+                setIsListening(true);
+                handleTalkButtonDown();
+              }}
+              onTouchEnd={() => {
+                setIsListening(false);
+                handleTalkButtonUp();
               }}
               className="rounded-full bg-gray-900 px-2 py-2 text-white disabled:opacity-50"
             >
