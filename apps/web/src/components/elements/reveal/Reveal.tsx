@@ -469,7 +469,7 @@ export const RevealSlides = forwardRef<RevealHandle, RevealSlidesProps>(
       if (revealRef.current) return;
       const configuration = setupConfig(configProps);
       import("reveal.js").then((mod) => {
-        const RevealClass = mod.default as typeof RevealType;
+        const RevealClass = mod.default;
         revealRef.current = new RevealClass(revealDivRef.current!, configuration);
         revealRef.current.initialize().then(() => {
           // reveal.js is ready
@@ -629,3 +629,5 @@ export const RevealSlides = forwardRef<RevealHandle, RevealSlidesProps>(
     );
   },
 );
+
+RevealSlides.displayName = 'RevealSlides';
