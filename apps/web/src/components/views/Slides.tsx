@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
-import "../elements/reveal/Reveal.css";
 import { RevealSlides } from "~/components/elements/reveal/Reveal";
 import { useSlides } from "~/contexts/SlidesContext";
 

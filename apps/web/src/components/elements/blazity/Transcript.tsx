@@ -133,7 +133,7 @@ function Transcript({
               return (
                 <div key={itemId} className={"items-center"}>
                   <div
-                    className={"max-w-lg rounded-xl bg-blue-50 p-3 text-white"}
+                    className={"max-w-lg rounded-xl bg-blue-50 p-3"}
                   >
                     <div
                       className={`flex items-center whitespace-pre-wrap text-sm font-bold ${
@@ -213,7 +213,7 @@ function Transcript({
 
       <div className="flex flex-col mb-6">
         <div className="textarea-gradient-border relative p-4">
-          <div className="absolute top-4 left-4 flex items-center gap-x-2 z-10">
+          <div className="absolute bottom-4 right-4 flex items-center gap-x-2 z-10">
             <button
               onClick={() => {
                 if (isListening) {
@@ -246,7 +246,7 @@ function Transcript({
                 onSendMessage();
               }
             }}
-            className="w-full px-4 py-2 focus:outline-none bg-white pt-14"
+            className="w-full px-4 py-2 focus:outline-none bg-white pb-14"
             placeholder="Respond to Adaptale..."
             style={{ resize: 'none' }}
           />

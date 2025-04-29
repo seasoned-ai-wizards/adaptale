@@ -10,6 +10,7 @@ import {
 } from "react";
 import "reveal.js/dist/reveal.css";
 import "reveal.js/plugin/highlight/monokai.css";
+import "./Reveal.css";
 
 import type RevealType from "reveal.js";
 
