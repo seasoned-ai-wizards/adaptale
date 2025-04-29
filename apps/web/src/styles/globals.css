@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 204 33% 97%; /* Updated to match #F6F9FB */
     --foreground: 209 46% 18%; /* Updated to match #1D2E3F */
     --card: 0 0% 100%;
     --card-foreground: 209 46% 18%; /* Updated to match #1D2E3F */
@@ -207,6 +207,14 @@
 
   .btn-gradient-border:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .textarea-gradient-border {
+    border: 4px solid;
+    border-image-source: linear-gradient(90deg, #40DEEF 0%, #8664F7 41.35%, #FF6680 67.41%, #FE8C40 88.02%, #FEBF37 100%);
+    border-image-slice: 1;
+    border-radius: 20px;
+    background-color: white;
   }
 
   .card-gradient-1 {

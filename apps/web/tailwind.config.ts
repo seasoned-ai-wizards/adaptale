@@ -56,8 +56,12 @@ export default {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         gray: {
+          100: '#F6F9FB',
           200: '#E5E8EB',
         },
+				blue: {
+					50: '#E9F1F7'
+				},
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',

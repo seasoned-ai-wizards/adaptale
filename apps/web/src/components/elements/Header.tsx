@@ -7,7 +7,7 @@ export async function Header() {
   const session = await auth();
   
   return (
-    <header className="w-full border-b border-gray-200 bg-white">
+    <header className="w-full border-b border-gray-200">
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center">
           <Link href="/">

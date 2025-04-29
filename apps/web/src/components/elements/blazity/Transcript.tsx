@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { SendIcon, MicIcon, MicOffIcon } from "lucide-react";
+import { SendHorizonalIcon, MicIcon, MicOffIcon } from "lucide-react";
 import { type TranscriptItem } from "~/types";
 import { useTranscript } from "~/contexts/TranscriptContext";
 
@@ -72,7 +72,7 @@ function Transcript({
   };
 
   return (
-    <div className="flex flex-1 flex-col rounded-xl bg-white">
+    <div className="flex flex-1 flex-col basis-1/5">
       <div className="relative flex-1 min-h-0">
         {/*<button*/}
         {/*  onClick={handleCopyTranscript}*/}
@@ -133,7 +133,7 @@ function Transcript({
               return (
                 <div key={itemId} className={"items-center"}>
                   <div
-                    className={"max-w-lg rounded-xl bg-blue-800 p-3 text-white"}
+                    className={"max-w-lg rounded-xl bg-blue-50 p-3 text-white"}
                   >
                     <div
                       className={`flex items-center whitespace-pre-wrap text-sm font-bold ${
@@ -211,40 +211,46 @@ function Transcript({
         </div>
       </div>
 
-      <div className="flex flex-shrink-0 items-center gap-x-2 border-t border-gray-200 p-4">
-        <textarea
-          ref={inputRef}
-          type="text"
-          value={userText}
-          onChange={(e) => setUserText(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && canSend) {
-              onSendMessage();
-            }
-          }}
-          className="flex-1 px-4 py-2 focus:outline-none"
-          placeholder="Type a message..."
-        />
-        <button
-          onClick={() => {
-            if (isListening) {
-              handleTalkButtonUp();
-            } else {
-              handleTalkButtonDown();
-            }
-            setIsListening(!!isListening);
-          }}
-          className="rounded-full bg-gray-900 px-2 py-2 text-white disabled:opacity-50"
-        >
-          { isListening ? <MicOffIcon /> : <MicIcon />}
-        </button>
-        <button
-          onClick={onSendMessage}
-          disabled={!canSend || !userText.trim()}
-          className="rounded-full bg-gray-900 px-2 py-2 text-white disabled:opacity-50"
-        >
-          <SendIcon />
-        </button>
+      <div className="flex flex-col mb-6">
+        <div className="textarea-gradient-border relative p-4">
+          <div className="absolute top-4 left-4 flex items-center gap-x-2 z-10">
+            <button
+              onClick={() => {
+                if (isListening) {
+                  handleTalkButtonUp();
+                } else {
+                  handleTalkButtonDown();
+                }
+                setIsListening(!!isListening);
+              }}
+              className="rounded-full bg-gray-900 px-2 py-2 text-white disabled:opacity-50"
+            >
+              { isListening ? <MicOffIcon /> : <MicIcon />}
+            </button>
+            <button
+              onClick={onSendMessage}
+              disabled={!canSend || !userText.trim()}
+              className="rounded-full bg-gray-900 px-2 py-2 text-white disabled:opacity-50"
+            >
+              <SendHorizonalIcon />
+            </button>
+          </div>
+          
+          <textarea
+            ref={inputRef}
+            type="text"
+            value={userText}
+            onChange={(e) => setUserText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && canSend) {
+                onSendMessage();
+              }
+            }}
+            className="w-full px-4 py-2 focus:outline-none bg-white pt-14"
+            placeholder="Respond to Adaptale..."
+            style={{ resize: 'none' }}
+          />
+        </div>
       </div>
     </div>
   );
