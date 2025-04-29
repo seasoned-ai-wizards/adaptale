@@ -67,8 +67,8 @@ function Transcript({
   };
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col rounded-xl bg-white">
-      <div className="relative min-h-0 flex-1">
+    <div className="flex flex-1 flex-col rounded-xl bg-white">
+      <div className="relative flex-1 min-h-0">
         {/*<button*/}
         {/*  onClick={handleCopyTranscript}*/}
         {/*  className={`absolute w-20 top-3 right-2 mr-1 z-10 text-sm px-3 py-2 rounded-full bg-gray-200 hover:bg-gray-300`}*/}
@@ -78,7 +78,7 @@ function Transcript({
 
         <div
           ref={transcriptRef}
-          className="flex h-full flex-col gap-y-4 overflow-auto p-4"
+          className="h-full overflow-auto p-4 flex flex-col gap-y-4"
         >
           {transcriptItems.map((item) => {
             const {
