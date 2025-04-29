@@ -40,10 +40,10 @@ function TempChat() {
   const [isEventsPaneExpanded, setIsEventsPaneExpanded] =
     useState<boolean>(true);
   const [userText, setUserText] = useState<string>("");
-  const [isPTTActive, setIsPTTActive] = useState<boolean>(false);
+  const [isPTTActive, setIsPTTActive] = useState<boolean>(true);
   const [isPTTUserSpeaking, setIsPTTUserSpeaking] = useState<boolean>(false);
   const [isAudioPlaybackEnabled, setIsAudioPlaybackEnabled] =
-    useState<boolean>(true);
+    useState<boolean>(false);
 
   const sendClientEvent = useCallback(
     (eventObj: any, eventNameSuffix = "") => {
@@ -468,6 +468,8 @@ function TempChat() {
           userText={userText}
           setUserText={setUserText}
           onSendMessage={handleSendTextMessage}
+          handleTalkButtonDown={handleTalkButtonDown}
+          handleTalkButtonUp={handleTalkButtonUp}
           canSend={
             sessionStatus === "CONNECTED" &&
             dcRef.current?.readyState === "open"

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { SendIcon } from "lucide-react";
+import { SendIcon, MicIcon, MicOffIcon } from "lucide-react";
 import { type TranscriptItem } from "~/types";
 import { useTranscript } from "~/contexts/TranscriptContext";
 
@@ -11,6 +11,8 @@ export interface TranscriptProps {
   setUserText: (val: string) => void;
   onSendMessage: () => void;
   canSend: boolean;
+  handleTalkButtonDown: () => void;
+  handleTalkButtonUp: () => void;
 }
 
 function Transcript({
@@ -18,7 +20,10 @@ function Transcript({
   setUserText,
   onSendMessage,
   canSend,
+  handleTalkButtonDown,
+  handleTalkButtonUp
 }: TranscriptProps) {
+  const [ isListening, setIsListening ] = useState(false);
   const { transcriptItems, toggleTranscriptItemExpand } = useTranscript();
   const transcriptRef = useRef<HTMLDivElement | null>(null);
   const [prevLogs, setPrevLogs] = useState<TranscriptItem[]>([]);
@@ -207,7 +212,7 @@ function Transcript({
       </div>
 
       <div className="flex flex-shrink-0 items-center gap-x-2 border-t border-gray-200 p-4">
-        <input
+        <textarea
           ref={inputRef}
           type="text"
           value={userText}
@@ -220,6 +225,27 @@ function Transcript({
           className="flex-1 px-4 py-2 focus:outline-none"
           placeholder="Type a message..."
         />
+        <button
+          onMouseDown={() => {
+            setIsListening(true);
+            handleTalkButtonDown();
+          }}
+          onMouseUp={() => {
+            setIsListening(false);
+            handleTalkButtonUp();
+          }}
+          onTouchStart={() => {
+            setIsListening(true);
+            handleTalkButtonDown();
+          }}
+          onTouchEnd={() => {
+            setIsListening(false);
+            handleTalkButtonUp();
+          }}
+          className="rounded-full bg-gray-900 px-2 py-2 text-white disabled:opacity-50"
+        >
+          { isListening ? <MicOffIcon /> : <MicIcon />}
+        </button>
         <button
           onClick={onSendMessage}
           disabled={!canSend || !userText.trim()}
