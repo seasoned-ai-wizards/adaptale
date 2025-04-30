@@ -12,7 +12,6 @@ import { type RevealHandle } from "~/components/elements/reveal/Reveal";
 export interface SlidesContextValue {
   revealRef?: React.Ref<RevealHandle>;
   goTo: (horizontal: number, vertical?: number, fragment?: number) => void;
-  refresh: () => void;
 }
 
 
@@ -30,22 +29,11 @@ export const SlidesProvider: FC<PropsWithChildren> = ({ children }) => {
     [revealRef],
   );
 
-  const refresh = useCallback(() => {
-    const reveal = revealRef.current?.getReveal();
-    if (!reveal) return;
-    const slide = reveal.getCurrentSlide();
-    const coordinates = reveal.getIndices(slide);
-    const { h, v, f } = coordinates;
-    console.log('Refresh coordinates', coordinates);
-    return reveal.slide(h, v, f);
-  }, [revealRef]);
-
   return (
     <SlidesContext.Provider
       value={{
         revealRef,
-        goTo,
-        refresh,
+        goTo
       }}
     >
       {children}

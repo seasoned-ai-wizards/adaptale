@@ -603,6 +603,11 @@ export const RevealSlides = forwardRef<RevealHandle, RevealSlidesProps>(
       if (revealRef.current?.isReady() && children) {
         revealRef.current.sync();
         revealRef.current.layout();
+        const currentSlide = revealRef.current.getCurrentSlide();
+        const coordinates = revealRef.current.getIndices(currentSlide);
+        const { h, v, f } = coordinates;
+        console.log('Refresh coordinates', coordinates);
+        revealRef.current.slide(h, v, f);
       }
     }, [childrenStr]);
 

@@ -140,35 +140,21 @@ function Slides({ slides = [] }: SlidesProps) {
         theme={theme}
         onStateChange={handleOnStateChange}
       >
-        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
-          <h2>
-            The world&apos;s most important ideas are being held hostage by
-            PowerPoint
-          </h2>
-        </section>
-        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
-          <div className="flex flex-col items-center justify-center">
-            <img data-id="world" src="/adaptable.png" alt="Adaptable" />
-            <h2>
-              We believe that people&apos;s ideas deserve better than static slides.
-            </h2>
-          </div>
-        </section>
-        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
-          <h2>
-            It’s for expert people with immense impact, above all – educators.
-          </h2>
-        </section>
-        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
-          <h2>
-            An AI-powered storytelling assistant that transforms ideas into
-            impactful visuals on the go!
-          </h2>
-        </section>
-
-        <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
-          <h2>DEMO TIME!</h2>
-        </section>
+        {
+          !slides?.length && 
+          <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
+            <div className="flex flex-col items-center justify-center">
+              <img data-id="world" src="/adaptable.png" alt="Adaptable" />
+              <h2>
+                We believe that people&apos;s ideas deserve better than static slides.
+              </h2>
+              <p>
+                There are no slides yet. Talk to your Adaptale agent to create some!
+              </p>
+            </div>
+          </section>
+        }
+       
 
         {slides.map((slide, index) => (
           <Slide
@@ -179,10 +165,6 @@ function Slides({ slides = [] }: SlidesProps) {
             imageUrl={slide.imageUrl}
           />
         ))}
-
-        <section key="3" data-background="/adaptale-content/adaptale_slide_background_2.jpg">
-          <h2>The end</h2>
-        </section>
       </RevealSlides>
     </div>
   );

@@ -17,7 +17,7 @@ import { useSlides } from "~/contexts/SlidesContext";
 function TempChat() {
   const searchParams = useSearchParams();
 
-  const { goTo, refresh } = useSlides();
+  const { goTo } = useSlides();
 
   const [slides, setSlides] = useState<SlideTemplate[]>([]);
 
@@ -101,7 +101,6 @@ function TempChat() {
               return slide;
             }),
           );
-          refresh();
           break;
         case "removeSlide":
           console.log("Removing slide", args);
