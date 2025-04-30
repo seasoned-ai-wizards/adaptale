@@ -29,7 +29,6 @@ export interface SlideTemplate {
   title?: string;
   items?: string[];
   imageUrl?: string;
-  isNewSlide?: boolean;
 }
 
 export interface SlideProps {
@@ -37,7 +36,8 @@ export interface SlideProps {
   items?: string[];
   background?: string;
   imageUrl?: string;
-  isNewSlide?: boolean
+  isHidden?: boolean;
+  isFuture?: boolean;
 }
 
 function Slide({
@@ -45,7 +45,8 @@ function Slide({
   items,
   background = "/theme-world/bg1.jpeg",
   imageUrl = "/adaptable.png",
-  isNewSlide = false,
+  isHidden = true,
+  isFuture = true
 }: SlideProps) {
   const keyPrefix = title 
     ? btoa(title)
@@ -54,7 +55,7 @@ function Slide({
     : '';
   return imageUrl && imageUrl != '/adaptable.png' ? <>
     <section key={keyPrefix}
-      {... isNewSlide ? {hidden: true, className: "future", "aria-hidden": "true"} : {}}
+      {... isHidden ? {hidden: true, className: isFuture ? "future": "past", "aria-hidden": "true"} : {}}
       data-background={background}
       >
       <section key={`${keyPrefix}-1`} data-auto-animate>
@@ -85,7 +86,7 @@ function Slide({
     </section>
   </> :(
     <section key={keyPrefix} data-background={background}
-      {... isNewSlide ? {hidden: true, className: "future", "aria-hidden": "true"} : {}}
+      {... isHidden ? {hidden: true, className: isFuture ? "future": "past", "aria-hidden": "true"} : {}}
       >
       <h1 className="fragment fade-in">{title}</h1>
       {items?.map((item, index) => (
@@ -116,14 +117,7 @@ function Slides({ slides = [] }: SlidesProps) {
   );
 
   const handleOnStateChange = useCallback((state: Reveal.RevealState) => {
-    console.log('Presentation state', state);
-    // if (state.indexh > 4) {
-    //   console.log("world");
-    //   setTheme("world");
-    // } else {
-    //   console.log("demo");
-    //   setTheme("demo");
-    // }
+    setPresentationState(state);
   }, []);
 
   const { revealRef } = useSlides();
@@ -182,7 +176,6 @@ function Slides({ slides = [] }: SlidesProps) {
             items={slide.items}
             background={slide.background}
             imageUrl={slide.imageUrl}
-            isNewSlide={slide.isNewSlide}
           />
         ))}
 

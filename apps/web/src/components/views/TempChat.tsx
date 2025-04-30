@@ -75,14 +75,13 @@ function TempChat() {
         case "addSlide":
           console.log("Adding slide", args);
           setSlides((prevSlides) => [
-            ...prevSlides.map(slide => ({...slide, isNewSlide: false})),
+            ...prevSlides,
             {
               slug: args.slug,
               template: args.template,
               title: args.title,
               items: args.items,
               imageUrl: args.imageUrl,
-              isNewSlide: true
             },
           ]);
           break;
@@ -97,13 +96,9 @@ function TempChat() {
                   items: args.items ?? slide.items,
                   template: args.template ?? slide.template,
                   imageUrl: args.imageUrl ?? slide.imageUrl,
-                  isNewSlide: false
                 };
               }
-              return {
-                ...slide,
-                isNewSlide: false
-              };
+              return slide;
             }),
           );
           break;
