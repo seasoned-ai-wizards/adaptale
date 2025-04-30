@@ -11,15 +11,14 @@ import { createRealtimeConnection } from "~/lib/realtimeConnection"; // Agent co
 import { allAgentSets, defaultAgentSetKey } from "~/agentConfigs";
 import Transcript from "~/components/elements/blazity/Transcript";
 import BottomToolbar from "~/components/elements/blazity/BottomToolbar";
-import Slides, { type SlideTemplate } from "~/components/views/Slides";
+import Slides from "~/components/views/Slides";
 import { useSlides } from "~/contexts/SlidesContext";
 
 function TempChat() {
   const searchParams = useSearchParams();
 
-  const { goTo } = useSlides();
-
-  const [slides, setSlides] = useState<SlideTemplate[]>([]);
+  const { goTo, setSlides, addSlide, modifySlide, removeSlide, slides } =
+    useSlides();
 
   const { transcriptItems, addTranscriptMessage, addTranscriptBreadcrumb } =
     useTranscript();
@@ -65,65 +64,49 @@ function TempChat() {
   );
 
   const callFunctionHandler = useCallback(
-    async (name: string, args: SlideTemplate) => {
+    async (name: string, args: any) => {
       console.log(name, args);
       switch (name) {
         case "generateOutline":
           console.log("Generating outline", args);
-          setSlides((prevSlides) => []);
+          setSlides([]);
           break;
         case "addSlide":
           console.log("Adding slide", args);
-          setSlides((prevSlides) => [
-            ...prevSlides.map(slide => ({...slide, isNewSlide: false})),
-            {
-              slug: args.slug,
-              template: args.template,
-              title: args.title,
-              items: args.items,
-              imageUrl: args.imageUrl,
-              isNewSlide: true
-            },
-          ]);
+          addSlide({
+            slug: args.slug,
+            template: args.template,
+            title: args.title,
+            items: args.items,
+            imageUrl: args.imageUrl,
+          });
           break;
         case "modifySlide":
           console.log("Modifying slide", args);
-          setSlides((prevSlides) =>
-            prevSlides.map((slide) => {
-              if (slide.slug === args.slug) {
-                return {
-                  ...slide,
-                  title: args.title ?? slide.title,
-                  items: args.items ?? slide.items,
-                  template: args.template ?? slide.template,
-                  imageUrl: args.imageUrl ?? slide.imageUrl,
-                  isNewSlide: false
-                };
-              }
-              return {
-                ...slide,
-                isNewSlide: false
-              };
-            }),
-          );
+          modifySlide({
+            slug: args.slug,
+            title: args.title,
+            items: args.items,
+            template: args.template,
+            imageUrl: args.imageUrl,
+          });
           break;
         case "removeSlide":
           console.log("Removing slide", args);
-          setSlides((prevSlides) =>
-            prevSlides.filter((slide) => slide.slug !== args.slug),
-          );
+          removeSlide(args.slug);
           break;
         case "navigateSlide":
           console.log("Navigating to slide", args);
-          // map slug to index
-          const slideIndex = slides.findIndex((slide) => slide.slug === args.slug);
+          const slideIndex = slides.findIndex(
+            (slide) => slide.slug === args.slug,
+          );
           goTo(slideIndex + 5);
           break;
         default:
           console.warn("Unknown function call:", name, args);
       }
     },
-    [slides],
+    [addSlide, goTo, modifySlide, removeSlide, setSlides, slides],
   );
 
   const handleServerEventRef = useHandleServerEvent({
@@ -400,7 +383,7 @@ function TempChat() {
       selectedAgentConfigSet &&
       selectedAgentName
     ) {
-      // const currentAgent = selectedAgentConfigSet.find(
+// const currentAgent = selectedAgentConfigSet.find(
       //   (a) => a.name === selectedAgentName,
       // );
       // addTranscriptBreadcrumb(`Agent: ${selectedAgentName}`, currentAgent);
@@ -477,7 +460,7 @@ function TempChat() {
         />
 
         {/*<Events isExpanded={isEventsPaneExpanded} />*/}
-        <Slides slides={slides} />
+        <Slides />
       </div>
 
       {/*<BottomToolbar*/}
