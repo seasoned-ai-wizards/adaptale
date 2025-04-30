@@ -116,11 +116,12 @@ function Slides({ slides = [] }: SlidesProps) {
     "bottom-right",
   );
 
+  const { revealRef } = useSlides();
+
   const handleOnStateChange = useCallback((state: Reveal.RevealState) => {
-    setPresentationState(state);
+    // setPresentationState(state);
   }, []);
 
-  const { revealRef } = useSlides();
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center basis-4/5">

@@ -12,48 +12,42 @@ import { type RevealHandle } from "~/components/elements/reveal/Reveal";
 export interface SlidesContextValue {
   revealRef?: React.Ref<RevealHandle>;
   goTo: (horizontal: number, vertical?: number, fragment?: number) => void;
-  setPresentationState: (state: Reveal.RevealState) => void;
-  presentationState: Reveal.RevealState;
+  refresh: () => void;
 }
 
-const defaultPresentationState: Reveal.RevealState = {
-  indexh: -1,
-  indexv: -1,
-  indexf: -1,
-  paused: false,
-  overview: false,
-};
 
 const SlidesContext = createContext<SlidesContextValue | undefined>(undefined);
 
 export const SlidesProvider: FC<PropsWithChildren> = ({ children }) => {
   const revealRef = useRef<RevealHandle>(null);
-  const [presentationState, setPresentationState] = useState<Reveal.RevealState>(defaultPresentationState);
 
   const goTo = useCallback(
     (h: number, v = 0, f = 100) => {
       const reveal = revealRef.current?.getReveal();
       if (!reveal) return;
-      const slide = reveal.getSlide(h, v);
-      const coordinates = reveal.getIndices(slide);
-      console.log(coordinates);
       return reveal.slide(h, v, f);
     },
     [revealRef],
   );
-  
-  const handleSetPresentationState = useCallback((state: Reveal.RevealState) => {
-    console.log('Presentation state', state);
-    setPresentationState(state);
-  }, []);
+
+  const refresh = useCallback(() => {
+    const reveal = revealRef.current?.getReveal();
+    if (!reveal) return;
+    const slide = reveal.getCurrentSlide();
+    const coordinates = reveal.getIndices(slide);
+    const { h, v, f } = coordinates;
+    console.log('Refresh coordinates', coordinates);
+    return reveal.slide(h, v, f);
+  }, [revealRef]);
 
   return (
-    <SlidesContext.Provider value={{ 
-      revealRef, 
-      goTo, 
-      setPresentationState: handleSetPresentationState,
-      presentationState 
-    }}>
+    <SlidesContext.Provider
+      value={{
+        revealRef,
+        goTo,
+        refresh,
+      }}
+    >
       {children}
     </SlidesContext.Provider>
   );
