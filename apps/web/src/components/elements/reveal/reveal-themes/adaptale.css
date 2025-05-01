@@ -358,3 +358,24 @@ section.has-light-background, section.has-light-background h1, section.has-light
     background-color: var(--r-background-color);
   }
 }
+
+/*********************************************
+ * TITLE IMAGE BULLETS TEMPLATE STYLES
+ *********************************************/
+.reveal .slides .title-image-bullets ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  width: 90%;
+}
+
+.reveal .slides .title-image-bullets li {
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  color: var(--r-heading-color);
+}
+
+.reveal .slides .title-image-bullets li:last-child {
+  margin-bottom: 0;
+}

@@ -336,39 +336,11 @@ function Slides({ slides = [] }: SlidesProps) {
                   </div>
                   
                   {/* Bullets column - right side */}
-                  <div className="flex items-center justify-center" style={{ flex: 1 }}>
-                    <ul style={{ 
-                      listStyleType: "disc", 
-                      paddingLeft: "20px",
-                      paddingRight: "20px",
-                      width: "90%"
-                    }}>
-                      <li style={{ 
-                        fontSize: "36px", 
-                        fontWeight: 400,
-                        letterSpacing: "-1px",
-                        marginBottom: "20px",
-                        color: "var(--r-heading-color)"
-                      }}>
-                        AI creates content and accurate visuals in uniform style
-                      </li>
-                      <li style={{ 
-                        fontSize: "36px", 
-                        fontWeight: 400,
-                        letterSpacing: "-1px",
-                        marginBottom: "20px",
-                        color: "var(--r-heading-color)"
-                      }}>
-                        Great layouts, easy to edit with text or voice prompts
-                      </li>
-                      <li style={{ 
-                        fontSize: "36px", 
-                        fontWeight: 400,
-                        letterSpacing: "-1px",
-                        color: "var(--r-heading-color)"
-                      }}>
-                        No design skills required
-                      </li>
+                  <div className="flex items-center justify-center title-image-bullets" style={{ flex: 1 }}>
+                    <ul>
+                      <li>AI creates content and accurate visuals in uniform style</li>
+                      <li>Great layouts, easy to edit with text or voice prompts</li>
+                      <li>No design skills required</li>
                     </ul>
                   </div>
                 </div>
