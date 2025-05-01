@@ -228,7 +228,28 @@ function Slides({ slides = [] }: SlidesProps) {
             </section>
 
             {/* Title Paragraph template */}
-            
+            <section data-background="/adaptale-content/adaptale_slide_background_3.jpg">
+              <div className="flex flex-col h-full">
+                {/* Title row - takes up about 30% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "30%" }}>
+                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                    Our vision
+                  </h1>
+                </div>
+                
+                {/* Content row - takes up about 70% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "70%" }}>
+                  <h2 style={{ 
+                    fontSize: "48px", 
+                    textAlign: "left", 
+                    padding: "0 60px", 
+                  }}>
+                    Is to deliver a seamless, no-hassle product that 
+                    enables everyone to unleash their creativity without limitations of any tool.
+                  </h2>
+                </div>
+              </div>
+            </section>
             
           </>
         }
