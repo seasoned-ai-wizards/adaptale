@@ -1,0 +1,4 @@
+# Project coding standards
+
+## Slide template generation
+IMPORTANT: ALWAYS ADD A NEW TEMPLATE DO NOT DELETE ANY CODE (ESPECIALLY EXISTING TEMPLATES)

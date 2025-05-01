@@ -181,6 +181,53 @@ function Slides({ slides = [] }: SlidesProps) {
               </section>
             </section>
 
+            {/* Headline template */}
+            <section data-background="/adaptale-content/adaptale_slide_background_2.jpg"> {/* data-autoslide="1000" */}
+              <div className="flex flex-col items-center justify-center">
+                <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                  We believe that people&apos;s ideas deserve better than static slides.
+                </h1>
+              </div>
+            </section>
+
+            {/* Title Image Paragraph template */}
+            <section data-background="/adaptale-content/adaptale_slide_background_3.jpg">
+              <div className="flex flex-col h-full">
+                {/* Title row - 1/4 of slide height */}
+                <div className="flex items-center justify-center" style={{ height: "25%" }}>
+                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                    Meet Adaptale
+                  </h1>
+                </div>
+                
+                {/* Content row - 3/4 of slide height */}
+                <div className="flex flex-row" style={{ height: "75%" }}>
+                  {/* Image column - left side */}
+                  <div className="flex items-center justify-center" style={{ flex: 1 }}>
+                    <Image 
+                      src="/adaptale-content/adaptale_mascot.png" 
+                      alt="Adaptale Chameleon" 
+                      width={640}
+                      height={460}
+                      layout="responsive"
+                    />
+                  </div>
+                  
+                  {/* Text column - right side */}
+                  <div className="flex items-center justify-center" style={{ flex: 1 }}>
+                    <h2 style={{ 
+                      fontSize: "48px", 
+                      textAlign: "left", 
+                      padding: "20px", 
+                    }}>
+                      An AI-powered storytelling assistant that transforms ideas into impactful visuals on the go.
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Title Paragraph template */}
             
             
           </>
