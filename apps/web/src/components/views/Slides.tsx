@@ -28,7 +28,7 @@ export interface SlideTemplate extends SlideProps {
 }
 
 export interface SlideProps {
-  template: string;
+  template?: string;
   title?: string;
   items?: string[];
   background?: string;
@@ -341,6 +341,88 @@ function Slides({ slides = [] }: SlidesProps) {
                       <li>AI creates content and accurate visuals in uniform style</li>
                       <li>Great layouts, easy to edit with text or voice prompts</li>
                       <li>No design skills required</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
+            {/* 2: Coach slide using Title Image Bullets template */}
+            <section data-background="/adaptale-content/adaptale_slide_background_3.jpg">
+              <div className="flex flex-col h-full">
+                {/* Title row - takes up about 25% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "25%" }}>
+                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                    2: Coach
+                  </h1>
+                </div>
+                
+                {/* Content row - takes up about 75% of the height */}
+                <div className="flex flex-row" style={{ height: "75%" }}>
+                  {/* Image column - left side */}
+                  <div className="flex items-center justify-center" style={{ flex: 1 }}>
+                    <div style={{ position: "relative", width: "80%", aspectRatio: "1/1" }}>
+                      <Image 
+                        src="/adaptale-content/adaptale_coach.png" 
+                        alt="Coach Icon" 
+                        fill
+                        sizes="(max-width: 768px) 60vw, 400px"
+                        style={{ 
+                          objectFit: "contain",
+                          objectPosition: "center"
+                        }}
+                        priority
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Bullets column - right side */}
+                  <div className="flex items-center justify-center title-image-bullets" style={{ flex: 1 }}>
+                    <ul>
+                      <li>Interactive training with live feedback</li>
+                      <li>Performance insights and improvement suggestions</li>
+                      <li>Practice delivery in realistic virtual environments</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
+            {/* 3: Present slide using Title Image Bullets template */}
+            <section data-background="/adaptale-content/adaptale_slide_background_3.jpg">
+              <div className="flex flex-col h-full">
+                {/* Title row - takes up about 25% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "25%" }}>
+                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                    3: Present
+                  </h1>
+                </div>
+                
+                {/* Content row - takes up about 75% of the height */}
+                <div className="flex flex-row" style={{ height: "75%" }}>
+                  {/* Image column - left side */}
+                  <div className="flex items-center justify-center" style={{ flex: 1 }}>
+                    <div style={{ position: "relative", width: "80%", aspectRatio: "1/1" }}>
+                      <Image 
+                        src="/adaptale-content/adaptale_present.png" 
+                        alt="Present Icon" 
+                        fill
+                        sizes="(max-width: 768px) 60vw, 400px"
+                        style={{ 
+                          objectFit: "contain",
+                          objectPosition: "center"
+                        }}
+                        priority
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Bullets column - right side */}
+                  <div className="flex items-center justify-center title-image-bullets" style={{ flex: 1 }}>
+                    <ul>
+                      <li>Dynamic presentation tools that adapt to your audience</li>
+                      <li>Seamless transitions between different content formats</li>
+                      <li>Real-time analytics to measure engagement</li>
                     </ul>
                   </div>
                 </div>
