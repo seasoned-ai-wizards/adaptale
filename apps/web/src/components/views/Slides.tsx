@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useCallback, useState } from "react";
 
 import { RevealSlides } from "~/components/elements/reveal/Reveal";
@@ -136,17 +137,53 @@ function Slides({ slides = [] }: SlidesProps) {
       >
         {
           !slides?.length && 
-          <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
-            <div className="flex flex-col items-center justify-center">
-              <img data-id="world" src="/adaptable.png" alt="Adaptable" />
-              <h2>
-                We believe that people&apos;s ideas deserve better than static slides.
-              </h2>
-              <p>
-                There are no slides yet. Talk to your Adaptale agent to create some!
-              </p>
-            </div>
-          </section>
+          <>
+            <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
+              <div className="flex flex-col items-center justify-center">
+                <img data-id="world" src="/adaptable.png" alt="Adaptable" />
+                <h2>
+                  We believe that people&apos;s ideas deserve better than static slides.
+                </h2>
+                <p>
+                  There are no slides yet. Talk to your Adaptale agent to create some!
+                </p>
+              </div>
+            </section>
+
+            {/* Headline Image template */}
+            <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
+              <section data-auto-animate> {/* data-autoslide="1000" */}
+                <div className="flex flex-col items-center justify-center">
+                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                    The world&apos;s most important ideas are being held hostage by PowerPoint.
+                  </h1>
+                </div>
+              </section>
+              <section data-auto-animate>
+                <div className="flex flex-row items-center justify-between w-full">
+                  <div className="flex-1 flex items-center justify-center pr-4">
+                    <h1 style={{ fontSize: "48px", textAlign: "left", padding: "20px" }}>
+                      The world&apos;s most important ideas are being held hostage by PowerPoint.
+                    </h1>
+                  </div>
+                  <div className="flex-1 flex items-center justify-center pl-4">
+                    <Image
+                      className="fragment fade-right" 
+                      src="/adaptale-content/adaptale_ideas_hostage.png" 
+                      alt="Ideas behind bars" 
+                      // style={{ width: "100%", height: "auto" }} 
+                      width={600}
+                      height={725}
+                      layout="responsive"
+                    />
+                  </div>
+                </div>
+              </section>
+            </section>
+
+            
+            
+          </>
         }
        
 

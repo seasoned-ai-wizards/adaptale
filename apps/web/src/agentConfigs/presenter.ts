@@ -43,9 +43,10 @@ const presentationBuilder: AgentConfig = {
     ### Content
     - adaptale-content/adaptale_process_create_coach_present.png
     - adaptale-content/adaptale_create.png
-    - adaptale-content/adaptales_coach.png
+    - adaptale-content/adaptale_coach.png
     - adaptale-content/adaptale_present.png
     - adaptale-content/adaptale_creativity.png
+    - adaptale-content/adaptale_ideas_hostage.png
   ### Backgrounds
     - adaptale-content/adaptale_slide_background_1.jpg
     - adaptale-content/adaptale_slide_background_2.jpg
