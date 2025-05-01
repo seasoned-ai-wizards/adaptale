@@ -2,3 +2,21 @@
   bottom: 80px;
   right: 20px;
 }
+
+/* Make sections fill the full height of the slides container */
+.reveal .slides > section,
+.reveal .slides > section > section {
+  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Ensure content inside sections properly fills the available space */
+.reveal .slides > section > div,
+.reveal .slides > section > section > div {
+  height: 100%;
+  width: 100%;
+}
