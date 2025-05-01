@@ -306,6 +306,75 @@ function Slides({ slides = [] }: SlidesProps) {
               </div>
             </section>
             
+            {/* Title Image Bullets template */}
+            <section data-background="/adaptale-content/adaptale_slide_background_3.jpg">
+              <div className="flex flex-col h-full">
+                {/* Title row - takes up about 25% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "25%" }}>
+                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                    1: Create
+                  </h1>
+                </div>
+                
+                {/* Content row - takes up about 75% of the height */}
+                <div className="flex flex-row" style={{ height: "75%" }}>
+                  {/* Image column - left side */}
+                  <div className="flex items-center justify-center" style={{ flex: 1 }}>
+                    <div style={{ position: "relative", width: "80%", aspectRatio: "1/1" }}>
+                      <Image 
+                        src="/adaptale-content/adaptale_create.png" 
+                        alt="Create Icon" 
+                        fill
+                        sizes="(max-width: 768px) 60vw, 400px"
+                        style={{ 
+                          objectFit: "contain",
+                          objectPosition: "center"
+                        }}
+                        priority
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Bullets column - right side */}
+                  <div className="flex items-center justify-center" style={{ flex: 1 }}>
+                    <ul style={{ 
+                      listStyleType: "disc", 
+                      paddingLeft: "20px",
+                      paddingRight: "20px",
+                      width: "90%"
+                    }}>
+                      <li style={{ 
+                        fontSize: "36px", 
+                        fontWeight: 400,
+                        letterSpacing: "-1px",
+                        marginBottom: "20px",
+                        color: "var(--r-heading-color)"
+                      }}>
+                        AI creates content and accurate visuals in uniform style
+                      </li>
+                      <li style={{ 
+                        fontSize: "36px", 
+                        fontWeight: 400,
+                        letterSpacing: "-1px",
+                        marginBottom: "20px",
+                        color: "var(--r-heading-color)"
+                      }}>
+                        Great layouts, easy to edit with text or voice prompts
+                      </li>
+                      <li style={{ 
+                        fontSize: "36px", 
+                        fontWeight: 400,
+                        letterSpacing: "-1px",
+                        color: "var(--r-heading-color)"
+                      }}>
+                        No design skills required
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
           </>
         }
        
