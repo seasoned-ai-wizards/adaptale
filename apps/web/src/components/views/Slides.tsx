@@ -219,6 +219,7 @@ function Slides({ slides = [] }: SlidesProps) {
                       fontSize: "48px", 
                       textAlign: "left", 
                       padding: "20px", 
+                      fontWeight: "500"
                     }}>
                       An AI-powered storytelling assistant that transforms ideas into impactful visuals on the go.
                     </h2>
@@ -243,10 +244,34 @@ function Slides({ slides = [] }: SlidesProps) {
                     fontSize: "48px", 
                     textAlign: "left", 
                     padding: "0 60px", 
+                    fontWeight: "500"
                   }}>
                     Is to deliver a seamless, no-hassle product that 
                     enables everyone to unleash their creativity without limitations of any tool.
                   </h2>
+                </div>
+              </div>
+            </section>
+            
+            {/* Title Image template */}
+            <section data-background="/adaptale-content/adaptale_slide_background_2.jpg">
+              <div className="flex flex-col h-full">
+                {/* Title row - takes up about 30% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "30%" }}>
+                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                    Three stages
+                  </h1>
+                </div>
+                
+                {/* Image row - takes up about 70% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "70%" }}>
+                  <Image 
+                    src="/adaptale-content/adaptale_process_create_coach_present.png" 
+                    alt="Three stages: Create, Coach, Present" 
+                    width={1251}
+                    height={593}
+                    layout="responsive"
+                  />
                 </div>
               </div>
             </section>
