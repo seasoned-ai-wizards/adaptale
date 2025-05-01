@@ -154,7 +154,7 @@ function Slides({ slides = [] }: SlidesProps) {
             <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
               <section data-auto-animate> {/* data-autoslide="1000" */}
                 <div className="flex flex-col items-center justify-center">
-                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                  <h1 style={{ fontSize: "64px", textAlign: "center", padding: "20px" }}>
                     The world&apos;s most important ideas are being held hostage by PowerPoint.
                   </h1>
                 </div>
@@ -184,7 +184,7 @@ function Slides({ slides = [] }: SlidesProps) {
             {/* Headline template */}
             <section data-background="/adaptale-content/adaptale_slide_background_2.jpg"> {/* data-autoslide="1000" */}
               <div className="flex flex-col items-center justify-center">
-                <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                <h1 style={{ fontSize: "64px", textAlign: "center", padding: "20px" }}>
                   We believe that people&apos;s ideas deserve better than static slides.
                 </h1>
               </div>
@@ -254,7 +254,7 @@ function Slides({ slides = [] }: SlidesProps) {
             </section>
             
             {/* Title Image template */}
-            <section data-background="/adaptale-content/adaptale_slide_background_2.jpg">
+            <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
               <div className="flex flex-col h-full">
                 {/* Title row - takes up about 30% of the height */}
                 <div className="flex items-center justify-center" style={{ height: "30%" }}>
@@ -268,10 +268,40 @@ function Slides({ slides = [] }: SlidesProps) {
                   <Image 
                     src="/adaptale-content/adaptale_process_create_coach_present.png" 
                     alt="Three stages: Create, Coach, Present" 
-                    width={1251}
-                    height={593}
+                    width={800}
+                    height={400}
                     layout="responsive"
+                    style={{ maxWidth: "80%", height: "auto" }}
                   />
+                </div>
+              </div>
+            </section>
+            
+            {/* Improved Title Image template with better aspect ratio handling */}
+            <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
+              <div className="flex flex-col h-full">
+                {/* Title row - takes up about 30% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "30%" }}>
+                  <h1 style={{ fontSize: "64px", textAlign: "center" }}>
+                    Three stages (improved)
+                  </h1>
+                </div>
+                
+                {/* Image row - takes up about 70% of the height */}
+                <div className="flex items-center justify-center" style={{ height: "70%", position: "relative" }}>
+                  <div style={{ width: "80%", maxWidth: "1400px", position: "relative", aspectRatio: "1251/593" }}>
+                    <Image 
+                      src="/adaptale-content/adaptale_process_create_coach_present.png" 
+                      alt="Three stages: Create, Coach, Present" 
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                      style={{ 
+                        objectFit: "contain",
+                        objectPosition: "center"
+                      }}
+                      priority
+                    />
+                  </div>
                 </div>
               </div>
             </section>
