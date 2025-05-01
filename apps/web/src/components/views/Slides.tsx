@@ -22,22 +22,16 @@ const RevealNotes = dynamic(() => import("reveal.js/plugin/notes/notes"), {
 
 // import './custom_theme_starter.css';
 
-export interface SlideTemplate {
-  template: string;
+export interface SlideTemplate extends SlideProps {
   slug?: string;
-  background?: string;
-  title?: string;
-  items?: string[];
-  imageUrl?: string;
 }
 
 export interface SlideProps {
+  template: string;
   title?: string;
   items?: string[];
   background?: string;
   imageUrl?: string;
-  isHidden?: boolean;
-  isFuture?: boolean;
 }
 
 function Slide({
@@ -45,9 +39,9 @@ function Slide({
   items,
   background = "/theme-world/bg1.jpeg",
   imageUrl = "/adaptable.png",
-  isHidden = true,
-  isFuture = true
 }: SlideProps) {
+  const isHidden = true;
+  const isFuture = true;
   const keyPrefix = title 
     ? btoa(title)
         .replace(/[+/=]/g, '') // Remove non-alphanumeric chars
@@ -98,7 +92,7 @@ function Slide({
   );
 }
 
-interface SlidesProps {
+export interface SlidesProps {
   slides?: SlideTemplate[];
 }
 
@@ -165,7 +159,7 @@ function Slides({ slides = [] }: SlidesProps) {
             imageUrl={slide.imageUrl}
           />
         ))}
-      </RevealSlides>
+        </RevealSlides>
     </div>
   );
 }
