@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 
 import { RevealSlides } from "~/components/elements/reveal/Reveal";
 import { useSlides } from "~/contexts/SlidesContext";
+import { Slide, type SlideData, SlideTemplate } from "~/components/elements/slides/Slide";
 
 const RevealZoom = dynamic(() => import("reveal.js/plugin/zoom/zoom"), {
   ssr: false,
@@ -22,80 +23,6 @@ const RevealNotes = dynamic(() => import("reveal.js/plugin/notes/notes"), {
 // import RevealZoom from "reveal.js/plugin/zoom/zoom";
 
 // import './custom_theme_starter.css';
-
-export interface SlideData {
-  slug?: string;
-  template?: string;
-  title?: string;
-  items?: string[];
-  paragraph?: string;
-  background?: string;
-  imageUrl?: string;
-}
-
-function Slide({
-  slug,
-  template = "title-paragraph",
-  title,
-  items,
-  background = "/theme-world/bg1.jpeg",
-  imageUrl = "/adaptable.png",
-  paragraph
-}: SlideData) {
-  const isHidden = true;
-  const isFuture = true;
-  const keyPrefix = slug 
-    ? btoa(slug
-          // Sanitize title by removing non-Latin1 characters first
-          .replace(/[^\x00-\xFF]/g, '')
-        )
-        .replace(/[+/=]/g, '') // Remove non-alphanumeric chars
-        .substring(0, 8) 
-    : '';
-  return imageUrl && imageUrl != '/adaptable.png' ? <>
-    <section key={keyPrefix}
-      {... isHidden ? {hidden: true, className: isFuture ? "future": "past", "aria-hidden": "true"} : {}}
-      data-background={background}
-      >
-      <section key={`${keyPrefix}-1`} data-auto-animate>
-          <h2 data-id={`${keyPrefix}-heading`}>{title}</h2>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-            <img data-id={`${keyPrefix}-image`} src={imageUrl} style={{
-                maxHeight: '500px'
-              }} />
-          </div>
-      </section>
-      <section key={`${keyPrefix}-2`} data-auto-animate>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-            <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
-              <img data-id={`${keyPrefix}-image`} src={imageUrl} style={{
-                maxHeight: '400px'
-              }} />
-            </div>
-            <div style={{ flex: "1", padding: "0 20px", justifyContent: "left" }}>
-              <h2 data-id={`${keyPrefix}-heading`}>{title}</h2>
-              {items?.map((item, index) => (
-                <p key={index}>
-                  {item}
-                </p>
-              ))}
-            </div>
-          </div>
-      </section>
-    </section>
-  </> :(
-    <section key={keyPrefix} data-background={background}
-      {... isHidden ? {hidden: true, className: isFuture ? "future": "past", "aria-hidden": "true"} : {}}
-      >
-      <h1 className="fragment fade-in">{title}</h1>
-      {items?.map((item, index) => (
-        <p key={index} className={`fragment${ index !== 0 ? ' fade-in': '' }`}>
-          {item}
-        </p>
-      ))}
-    </section>
-  );
-}
 
 export interface SlidesProps {
   slides?: SlideData[];
@@ -144,7 +71,7 @@ function Slides({ slides = [] }: SlidesProps) {
           <>
             <section data-background="/adaptale-content/adaptale_slide_background_1.jpg">
               <div className="flex flex-col items-center justify-center">
-                <img data-id="world" src="/adaptable.png" alt="Adaptable" />
+                <img data-id="world" src="/adaptale.png" alt="Adaptable" />
                 <h2>
                   We believe that people&apos;s ideas deserve better than static slides.
                 </h2>

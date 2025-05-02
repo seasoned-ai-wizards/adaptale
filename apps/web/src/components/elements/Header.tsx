@@ -11,7 +11,7 @@ export async function Header() {
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center">
           <Link href="/">
-            <Image src="/adaptable.png" width={120} height={40} alt="Adaptale" />
+            <Image src="/adaptale.png" width={120} height={40} alt="Adaptale" />
           </Link>
         </div>
         <div className="flex items-center gap-4">
