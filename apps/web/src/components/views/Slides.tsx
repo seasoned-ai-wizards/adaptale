@@ -23,28 +23,28 @@ const RevealNotes = dynamic(() => import("reveal.js/plugin/notes/notes"), {
 
 // import './custom_theme_starter.css';
 
-export interface SlideTemplate extends SlideProps {
+export interface SlideTemplate {
   slug?: string;
-}
-
-export interface SlideProps {
   template?: string;
   title?: string;
   items?: string[];
+  paragraph?: string;
   background?: string;
   imageUrl?: string;
 }
 
 function Slide({
+  slug,
   title,
   items,
   background = "/theme-world/bg1.jpeg",
   imageUrl = "/adaptable.png",
-}: SlideProps) {
+  paragraph
+}: SlideTemplate) {
   const isHidden = true;
   const isFuture = true;
-  const keyPrefix = title 
-    ? btoa(title
+  const keyPrefix = slug 
+    ? btoa(slug
           // Sanitize title by removing non-Latin1 characters first
           .replace(/[^\x00-\xFF]/g, '')
         )
