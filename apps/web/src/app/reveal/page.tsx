@@ -2,12 +2,12 @@
 
 import { TranscriptProvider } from "~/contexts/TranscriptContext";
 import { EventProvider } from "~/contexts/EventContext";
-import Slides, { SlideTemplate } from "~/components/views/Slides";
+import Slides, { SlideData } from "~/components/views/Slides";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 
 export default function Page() {
-  const [slides, setSlides] = useState<SlideTemplate[]>([
+  const [slides, setSlides] = useState<SlideData[]>([
     {
       template: "world",
       background: "/theme-world/bg1.jpeg",

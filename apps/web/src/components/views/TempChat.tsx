@@ -11,7 +11,7 @@ import { createRealtimeConnection } from "~/lib/realtimeConnection"; // Agent co
 import { allAgentSets, defaultAgentSetKey } from "~/agentConfigs";
 import Transcript from "~/components/elements/blazity/Transcript";
 import BottomToolbar from "~/components/elements/blazity/BottomToolbar";
-import Slides, { type SlideTemplate } from "~/components/views/Slides";
+import Slides, { type SlideData } from "~/components/views/Slides";
 import { useSlides } from "~/contexts/SlidesContext";
 
 function TempChat() {
@@ -19,7 +19,7 @@ function TempChat() {
 
   const { goTo } = useSlides();
 
-  const [slides, setSlides] = useState<SlideTemplate[]>([]);
+  const [slides, setSlides] = useState<SlideData[]>([]);
 
   const { transcriptItems, addTranscriptMessage, addTranscriptBreadcrumb } =
     useTranscript();
@@ -65,7 +65,7 @@ function TempChat() {
   );
 
   const callFunctionHandler = useCallback(
-    async (name: string, args: SlideTemplate) => {
+    async (name: string, args: SlideData) => {
       console.log(name, args);
       switch (name) {
         case "generateOutline":

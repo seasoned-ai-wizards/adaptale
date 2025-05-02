@@ -23,7 +23,7 @@ const RevealNotes = dynamic(() => import("reveal.js/plugin/notes/notes"), {
 
 // import './custom_theme_starter.css';
 
-export interface SlideTemplate {
+export interface SlideData {
   slug?: string;
   template?: string;
   title?: string;
@@ -40,7 +40,7 @@ function Slide({
   background = "/theme-world/bg1.jpeg",
   imageUrl = "/adaptable.png",
   paragraph
-}: SlideTemplate) {
+}: SlideData) {
   const isHidden = true;
   const isFuture = true;
   const keyPrefix = slug 
@@ -97,7 +97,7 @@ function Slide({
 }
 
 export interface SlidesProps {
-  slides?: SlideTemplate[];
+  slides?: SlideData[];
 }
 
 function Slides({ slides = [] }: SlidesProps) {
