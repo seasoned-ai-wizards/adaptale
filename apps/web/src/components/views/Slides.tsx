@@ -35,6 +35,7 @@ export interface SlideData {
 
 function Slide({
   slug,
+  template = "title-paragraph",
   title,
   items,
   background = "/theme-world/bg1.jpeg",
@@ -439,10 +440,13 @@ function Slides({ slides = [] }: SlidesProps) {
         {slides.map((slide, index) => (
           <Slide
             key={index}
+            slug={slide.slug}
+            template={slide.template}
             title={slide.title}
             items={slide.items}
             background={slide.background}
             imageUrl={slide.imageUrl}
+            paragraph={slide.paragraph}
           />
         ))}
         </RevealSlides>
