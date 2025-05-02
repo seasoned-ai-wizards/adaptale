@@ -600,9 +600,15 @@ export const RevealSlides = forwardRef<RevealHandle, RevealSlidesProps>(
     useEffect(() => {
       console.log("children adjust");
       const children = JSON.parse(childrenStr);
+      console.log('Prev indices', revealRef.current?.getIndices());
+      console.log('Prev horizontal slides', revealRef.current?.getHorizontalSlides());
+      console.log('Prev state', revealRef.current?.getState());
       if (revealRef.current?.isReady() && children) {
         revealRef.current.sync();
         revealRef.current.layout();
+        console.log('Current indices', revealRef.current.getIndices());
+        console.log('Current horizontal slides', revealRef.current.getHorizontalSlides());
+        console.log('Current state', revealRef.current.getState());
         const currentSlide = revealRef.current.getCurrentSlide();
         const coordinates = revealRef.current.getIndices(currentSlide);
         const { h, v, f } = coordinates;

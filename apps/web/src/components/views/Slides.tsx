@@ -44,7 +44,10 @@ function Slide({
   const isHidden = true;
   const isFuture = true;
   const keyPrefix = title 
-    ? btoa(title)
+    ? btoa(title
+          // Sanitize title by removing non-Latin1 characters first
+          .replace(/[^\x00-\xFF]/g, '')
+        )
         .replace(/[+/=]/g, '') // Remove non-alphanumeric chars
         .substring(0, 8) 
     : '';
