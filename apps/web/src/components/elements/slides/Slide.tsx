@@ -13,7 +13,7 @@ export enum SlideTemplate {
 
 export interface SlideData {
   slug?: string;
-  template?: string | SlideTemplate;
+  template?: SlideTemplate;
   title?: string;
   items?: string[];
   paragraph?: string;
