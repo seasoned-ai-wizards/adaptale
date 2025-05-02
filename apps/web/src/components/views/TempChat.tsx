@@ -10,8 +10,9 @@ import { useHandleServerEvent } from "~/hooks/useHandleServerEvent"; // Utilitie
 import { createRealtimeConnection } from "~/lib/realtimeConnection"; // Agent configs
 import { allAgentSets, defaultAgentSetKey } from "~/agentConfigs";
 import Transcript from "~/components/elements/blazity/Transcript";
-import BottomToolbar from "~/components/elements/blazity/BottomToolbar";
-import Slides, { type SlideData } from "~/components/views/Slides";
+// import BottomToolbar from "~/components/elements/blazity/BottomToolbar";
+import Slides from "~/components/views/Slides";
+import { SlideTemplate, type SlideData } from "~/components/elements/slides/Slide"
 import { useSlides } from "~/contexts/SlidesContext";
 
 function TempChat() {
@@ -73,6 +74,16 @@ function TempChat() {
           setSlides((prevSlides) => []);
           break;
         case "addSlide":
+          if (args.paragraph && args.items?.length) {
+            throw `Can't provide both paragraph and items - choose only one`;
+          }
+          if (args.paragraph && 
+            ![SlideTemplate.TITLE_IMAGE_PARAGRAPH, SlideTemplate.TITLE_IMAGE_PARAGRAPH].includes(args.template)) {
+              throw `If you add a paragraph of text, you need to pick a template that supports a paragraph`;
+          }
+          if (args.items && SlideTemplate.TITLE_IMAGE_BULLETS !== args.template) {
+            throw `If you add bullet items, you need to pick a template that supports bullets`;
+          }
           console.log("Adding slide", args);
           setSlides((prevSlides) => [
             ...prevSlides,
@@ -82,6 +93,7 @@ function TempChat() {
               title: args.title,
               items: args.items,
               imageUrl: args.imageUrl,
+              paragraph: args.paragraph
             },
           ]);
           break;
@@ -96,6 +108,7 @@ function TempChat() {
                   items: args.items ?? slide.items,
                   template: args.template ?? slide.template,
                   imageUrl: args.imageUrl ?? slide.imageUrl,
+                  paragraph: args.paragraph ?? slide.paragraph
                 };
               }
               return slide;
@@ -112,7 +125,7 @@ function TempChat() {
           console.log("Navigating to slide", args);
           // map slug to index
           const slideIndex = slides.findIndex((slide) => slide.slug === args.slug);
-          goTo(slideIndex + 5);
+          goTo(slideIndex);
           break;
         default:
           console.warn("Unknown function call:", name, args);
@@ -251,8 +264,8 @@ function TempChat() {
           create_response: true,
         };
 
-    const instructions = currentAgent?.instructions || "";
-    const tools = currentAgent?.tools || [];
+    const instructions = currentAgent?.instructions ?? "";
+    const tools = currentAgent?.tools ?? [];
 
     const sessionUpdateEvent = {
       type: "session.update",

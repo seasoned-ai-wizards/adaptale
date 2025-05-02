@@ -21,7 +21,7 @@ export enum SlideTemplate {
 
 export interface SlideData {
   slug?: string;
-  template?: SlideTemplate;
+  template: SlideTemplate;
   title?: string;
   items?: string[];
   paragraph?: string;
@@ -31,7 +31,7 @@ export interface SlideData {
 
 export function Slide({
   slug,
-  template = SlideTemplate.TITLE_PARAGRAPH,
+  template,
   title,
   items,
   background = "adaptale-content/adaptale_slide_background_1.jpg",

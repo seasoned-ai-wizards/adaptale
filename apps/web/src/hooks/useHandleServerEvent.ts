@@ -1,6 +1,6 @@
 "use client";
 
-import { ServerEvent, ServerEventType, SessionStatus } from "~/types";
+import { type ServerEvent, ServerEventType, type SessionStatus } from "~/types";
 import { useEvent } from "~/contexts/EventContext";
 import { useRef } from "react";
 import { useTranscript } from "~/contexts/TranscriptContext";
@@ -68,7 +68,27 @@ export function useHandleServerEvent({
       sendClientEvent({ type: ServerEventType.ResponseCreate });
     } catch (error) {
       console.error(error);
-      //TODO error parsing arguments
+      
+      // Create structured error response
+      const errorResponse = {
+        error: {
+          type: error instanceof Error ? error.name : "FunctionCallError",
+          message: error instanceof Error ? error.message : String(error),
+          details: functionName ? `Error in function: ${functionName}` : undefined
+        },
+        success: false
+      };
+      
+      // Send error back to the agent using the same channel
+      sendClientEvent({
+        type: ServerEventType.ConversationItemCreate,
+        item: {
+          type: "function_call_output",
+          call_id: functionCallParams.call_id,
+          output: JSON.stringify(errorResponse),
+        },
+      });
+      sendClientEvent({ type: ServerEventType.ResponseCreate });
     }
   };
 

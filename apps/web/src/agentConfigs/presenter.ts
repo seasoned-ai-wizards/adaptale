@@ -12,16 +12,25 @@ const presentationBuilder: AgentConfig = {
   instructions:
     `
     # Important notes
+
     You're a presentation builder assistant. Don't ask the user for instructions – let them speak first.
     Then use the tools to create an outline and let the user add, modify, or remove slides as needed.
     Do not ask the user for confirmation – just perform his instructions by adding slides and generating content
     Do not repeat instructions to the user before adding slides.
-    Do not generate only the title – always add bullets about the topics the user asks.
-    Choose a relevant image from the available images. If you can't find a relevant image, don't provide it.
+    
+    ## Presentation Design
+    - Use headline templates when user wants slides without content – such as introduction to the presentation or a section in the presentation
+    - In content slides always generate the title
+    - Choose a relevant image from the available images that will fit the presentation title and content (bullets or paragraph).
+    - Image path must always start with a slash: /
+    - Select the template that best fits the slide content
+     - You should either use bullets (items) or a paragraph of text – the slides MUST never have both.
+    - If you can't find a relevant image, don't provide it.
 
     # Available images for the presentations
     ## Generic theme
-    - background.jpg
+    ### Backgrounds
+    - /background.jpg
     ## World theme
     ### Content
     - /world-content/boy_hero_earth_powers_recycling_reduce_waste.png
@@ -37,21 +46,21 @@ const presentationBuilder: AgentConfig = {
     - /world-content/boy_hero_earth_powers_energy_saver.png
     - /world-content/girl_hero_earth_powers_energy_saver.png
     ### Backgrounds
-    - theme-world/bg1.jpeg
-    - theme-world/bg2.jpeg
-    - theme-world/bg3.jpeg
+    - /theme-world/bg1.jpeg
+    - /theme-world/bg2.jpeg
+    - /theme-world/bg3.jpeg
     ## Adaptale theme
     ### Content
-    - adaptale-content/adaptale_process_create_coach_present.png
-    - adaptale-content/adaptale_create.png
-    - adaptale-content/adaptale_coach.png
-    - adaptale-content/adaptale_present.png
-    - adaptale-content/adaptale_ideas_hostage.png
-    - adaptale-content/adaptale_mascot.png
+    - /adaptale-content/adaptale_process_create_coach_present.png
+    - /adaptale-content/adaptale_create.png
+    - /adaptale-content/adaptale_coach.png
+    - /adaptale-content/adaptale_present.png
+    - /adaptale-content/adaptale_ideas_hostage.png
+    - /adaptale-content/adaptale_mascot.png
   ### Backgrounds
-    - adaptale-content/adaptale_slide_background_1.jpg
-    - adaptale-content/adaptale_slide_background_2.jpg
-    - adaptale-content/adaptale_slide_background_3.jpg
+    - /adaptale-content/adaptale_slide_background_1.jpg
+    - /adaptale-content/adaptale_slide_background_2.jpg
+    - /adaptale-content/adaptale_slide_background_3.jpg
     `,
   tools: [
     {
@@ -98,10 +107,14 @@ const presentationBuilder: AgentConfig = {
           items: {
             type: "array",
             description:
-              "An array of strings representing the content of bullet items for the slide.",
+              "An array of strings representing the content of bullet points for the slide. The bullets show as main content of the slide – optionally alongside an image.",
             items: {
               type: "string",
             },
+          },
+          paragraph: {
+            type: "string",
+            description: "A string representing a single paragraph of text to be shown on the slide – optionally alongside an image."
           },
           template: {
             type: "string",
@@ -153,10 +166,14 @@ const presentationBuilder: AgentConfig = {
           items: {
             type: "array",
             description:
-              "An array of strings representing the content of bullet items for the slide.",
+              "An array of strings representing the content of bullet points for the slide. The bullets show as main content of the slide – optionally alongside an image.",
             items: {
               type: "string",
             },
+          },
+          paragraph: {
+            type: "string",
+            description: "A string representing a single paragraph of text to be shown on the slide – optionally alongside an image."
           },
           template: {
             type: "string",
