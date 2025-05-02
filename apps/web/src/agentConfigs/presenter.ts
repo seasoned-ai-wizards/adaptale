@@ -1,5 +1,6 @@
 import { type AgentConfig } from "~/types";
 import { injectTransferTools } from "./utils";
+import { SlideTemplate } from "~/components/elements/slides/Slide";
 
 //
 // 1) Static Presentation Builder
@@ -97,14 +98,14 @@ const presentationBuilder: AgentConfig = {
           items: {
             type: "array",
             description:
-              "An array of strings representing the content items for the slide.",
+              "An array of strings representing the content of bullet items for the slide.",
             items: {
               type: "string",
             },
           },
           template: {
             type: "string",
-            enum: ["one-column", "two-columns"],
+            enum: Object.values(SlideTemplate),
             description: "The name of the slide template to apply.",
           },
           imageUrl: {
@@ -152,14 +153,14 @@ const presentationBuilder: AgentConfig = {
           items: {
             type: "array",
             description:
-              "An array of strings representing the content items for the slide.",
+              "An array of strings representing the content of bullet items for the slide.",
             items: {
               type: "string",
             },
           },
           template: {
             type: "string",
-            enum: ["one-column", "two-columns"],
+            enum: Object.values(SlideTemplate),
             description: "The name of the slide template to apply.",
           },
           imageUrl: {
